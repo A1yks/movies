@@ -1,9 +1,11 @@
-import { Center, Loader } from '@mantine/core';
+import { Center, CenterProps, Loader } from '@mantine/core';
 
-export const PageLoader = () => {
+export type PageLoaderProps = CenterProps;
+
+export function PageLoader(props: CenterProps) {
     return (
-        <Center h='100%' w='100%'>
+        <Center h='100%' w='100%' {...props}>
             <Loader />
         </Center>
     );
-};
+}

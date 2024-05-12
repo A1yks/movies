@@ -1,9 +1,5 @@
-import { Title } from '@mantine/core';
+import { redirect } from 'next/navigation';
 
 export default function HomePage() {
-    return (
-        <Title fz={32} className='inter'>
-            Movies
-        </Title>
-    );
+    redirect('/movies');
 }

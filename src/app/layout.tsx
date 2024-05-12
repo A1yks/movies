@@ -1,8 +1,8 @@
 import '@mantine/core/styles.css';
-import '@/styles/global.css';
+import '@/styles/global.scss';
 import { MantineProvider, ColorSchemeScript } from '@mantine/core';
 import { theme } from '../config/theme';
-import { MainLayout } from './MainLayout';
+import { MainLayout } from './components';
 import { Inter, Poppins } from 'next/font/google';
 
 const poppins = Poppins({ weight: ['600'], subsets: ['latin'], variable: '--font-poppins' });
@@ -21,7 +21,7 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
                 <link rel='shortcut icon' href='/favicon.svg' />
                 <meta name='viewport' content='minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no' />
             </head>
-            <body className='inter'>
+            <body className={inter.className}>
                 <MantineProvider theme={theme}>
                     <MainLayout>{children}</MainLayout>
                 </MantineProvider>

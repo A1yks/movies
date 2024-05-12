@@ -21,6 +21,7 @@ export const NavbarButton = ({ children, active, ...others }: NavbarButtonProps)
             fw={400}
             px={10}
             h={42}
+            td='none'
             styles={{
                 root: {
                     transform: 'none',

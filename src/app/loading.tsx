@@ -1,3 +1,3 @@
-import { PageLoader } from '@/components/PageLoader';
+import { PageLoader } from '@/components';
 
 export default PageLoader;

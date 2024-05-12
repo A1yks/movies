@@ -1,0 +1,43 @@
+.poppins {
+    font-family: var(--font-poppins);
+}
+
+.inter {
+    font-family: var(--font-inter);
+}
+
+$activeOption: "[data-combobox-active='true']";
+
+#{$activeOption} {
+    background: var(--mantine-color-purple-filled);
+    color: #fff;
+}
+
+.mantine-Select-option,
+.mantine-Combobox-option {
+    display: flex;
+    align-items: center;
+
+    &:hover {
+        background: var(--mantine-color-purple-1);
+        color: #000;
+    }
+
+    &#{$activeOption}:hover {
+        background: var(--mantine-color-purple-filled);
+        color: #fff;
+    }
+}
+
+.dropdown-arrow {
+    stroke: var(--mantine-color-grey-filled);
+}
+
+[data-expanded='true'] + .mantine-Select-section,
+.dropdown-arrow-opened {
+    &.dropdown-arrow,
+    .dropdown-arrow {
+        stroke: var(--mantine-color-purple-filled);
+        transform: rotate(180deg);
+    }
+}
