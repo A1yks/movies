@@ -1,8 +1,6 @@
-'use server';
-
 import { cache } from 'react';
 import { api } from '.';
-import { GetGenresRes, GetMoviesReq, GetMoviesRes } from './types';
+import { GetGenresRes, GetMoviesReq, GetMoviesRes, MovieDetails } from './types';
 import { getMoviesSchema } from './validation';
 
 export const getGenres = cache(async () => {
@@ -50,6 +48,12 @@ const getMoviesCached = cache(
     }
 );
 
-export const getMovies = async ({ page, genres, year, ratingFrom, ratingTo, sortBy }: GetMoviesReq) => {
+export const getMovie = cache(async (id: string) => {
+    const movie = await api.get<MovieDetails>(`/movie/${id}`, { params: { append_to_response: 'videos' } });
+
+    return movie.data;
+});
+
+export async function getMovies({ page, genres, year, ratingFrom, ratingTo, sortBy }: GetMoviesReq) {
     return await getMoviesCached(page, genres, year, ratingFrom, ratingTo, sortBy);
-};
+}

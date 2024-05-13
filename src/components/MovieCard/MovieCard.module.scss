@@ -1,15 +1,11 @@
-.title {
-    line-height: 24px;
-    font-weight: 600;
-
-    &:hover {
-        text-decoration: underline;
-    }
+.hoverableTitle:hover {
+    text-decoration: underline;
 }
 
 .rateIcon {
     fill: var(--mantine-color-grey-3);
 
+    &.rated,
     &:hover {
         fill: var(--mantine-color-purple-filled);
     }

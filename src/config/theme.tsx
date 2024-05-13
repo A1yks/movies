@@ -1,6 +1,21 @@
 'use client';
 
-import { Box, Button, ComboboxOption, DEFAULT_THEME, Flex, NumberInput, ScrollArea, Select, colorsTuple, createTheme, rem } from '@mantine/core';
+import {
+    Anchor,
+    Avatar,
+    Box,
+    Button,
+    Card,
+    ComboboxOption,
+    DEFAULT_THEME,
+    Flex,
+    NumberInput,
+    ScrollArea,
+    Select,
+    colorsTuple,
+    createTheme,
+    rem,
+} from '@mantine/core';
 import Down from '@images/down.svg';
 
 export const theme = createTheme({
@@ -55,6 +70,26 @@ export const theme = createTheme({
                 fz: rem(14),
                 lh: rem(20),
                 h: rem(36),
+            },
+        }),
+        Anchor: Anchor.extend({
+            defaultProps: {
+                c: 'purple',
+            },
+        }),
+        Card: Card.extend({
+            defaultProps: {
+                p: rem(24),
+            },
+        }),
+        Avatar: Avatar.extend({
+            defaultProps: {
+                variant: 'white',
+            },
+            styles: {
+                root: {
+                    border: '1px solid #F5F5F6',
+                },
             },
         }),
     },

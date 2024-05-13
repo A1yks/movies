@@ -12,7 +12,7 @@ export type UseSetQueryParamsOptions = {
     beforeChange?: (qs: string) => string;
 };
 
-export function useSetQueryParams({ debounce = 500, beforeChange }: UseSetQueryParamsOptions = {}) {
+export function useSetQueryParams({ debounce = 300, beforeChange }: UseSetQueryParamsOptions = {}) {
     const pathname = usePathname();
     const router = useRouter();
 

@@ -1,6 +1,7 @@
 import { Box, Center, CenterProps, Stack, Text, rem } from '@mantine/core';
 import Image from 'next/image';
 import { MovieCardProps } from './MovieCard';
+import { TMDB_IMAGES_URL } from '@/constants/movies';
 
 type PosterProps = {
     posterPath: MovieCardProps['posterPath'];
@@ -12,7 +13,7 @@ export function Poster({ posterPath, width, height, ...others }: PosterProps) {
     if (posterPath) {
         return (
             <Image
-                src={`https://image.tmdb.org/t/p/original/${posterPath}`}
+                src={`${TMDB_IMAGES_URL}/w342/${posterPath}`}
                 width={width}
                 height={height}
                 alt='poster'

@@ -5,6 +5,9 @@ export const api = axios.create({
     headers: {
         accept: 'application/json',
     },
+    params: {
+        language: 'en-US',
+    },
 });
 
 api.interceptors.request.use((config) => {
