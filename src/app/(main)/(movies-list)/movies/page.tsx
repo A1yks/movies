@@ -1,6 +1,6 @@
-import { ClientPagination, Movies } from './components';
+import { Movies } from './components';
 import { Suspense } from 'react';
-import { PageLoader } from '@/components';
+import { LinkPagination, MoviesSkeleton, PageLoader } from '@/components';
 import { getUrlInfo } from '@/utils/getUrlInfo';
 import { Flex, Stack, rem } from '@mantine/core';
 import { getMovies } from '@/api/movies';
@@ -18,12 +18,12 @@ export default async function MoviesPage({ searchParams }: MoviesPageProps) {
 
     return (
         <Stack h='100%' gap={rem(24)}>
-            <Suspense key={qs} fallback={<PageLoader flex={1} />}>
+            <Suspense key={qs} fallback={<MoviesSkeleton items={20} />}>
                 <Movies />
             </Suspense>
             {showPagination && (
                 <Flex justify='flex-end' mt='auto'>
-                    <ClientPagination totalPages={Math.min(moviesData.total_pages, MAX_PAGES)} />
+                    <LinkPagination total={Math.min(moviesData.total_pages, MAX_PAGES)} pathname='/movies' />
                 </Flex>
             )}
         </Stack>

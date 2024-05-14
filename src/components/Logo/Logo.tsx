@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 export function Logo() {
     return (
-        <Anchor component={Link} href='/' underline='never'>
+        <Anchor component={Link} href='/movies' underline='never'>
             <Group gap={12}>
                 <Image src='/images/logo.svg' alt='' width={32} height={32} />
                 <Text c='purple' fw={600} fz={24} className='poppins'>

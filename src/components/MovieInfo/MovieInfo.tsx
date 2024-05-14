@@ -12,9 +12,16 @@ export type MovieInfoProps = {
 };
 
 export function MovieInfo({ trailerKey, description, companies }: MovieInfoProps) {
+    const hasTrailer = trailerKey !== undefined;
+    const hasCompanies = companies.length > 0;
+    const hasDescription = description.length > 0;
+    const hasContent = hasTrailer || hasCompanies || hasDescription;
+
+    if (!hasContent) return null;
+
     return (
         <Card>
-            {trailerKey !== undefined && (
+            {hasTrailer && (
                 <MovieInfoPiece title='Trailer' divider>
                     <iframe
                         id='ytplayer'
@@ -31,28 +38,32 @@ export function MovieInfo({ trailerKey, description, companies }: MovieInfoProps
                     />
                 </MovieInfoPiece>
             )}
-            <MovieInfoPiece title='Description' divider>
-                <Text lh='140%'>{description}</Text>
-            </MovieInfoPiece>
-            <MovieInfoPiece title='Production'>
-                <Stack gap={rem(12)}>
-                    {companies.map((company) => (
-                        <Group key={company.id}>
-                            <Avatar
-                                src={company.logo_path ? `${TMDB_IMAGES_URL}/w45/${company.logo_path}` : null}
-                                alt={company.name}
-                                size={rem(40)}
-                                styles={{ image: { objectFit: 'contain', padding: 4 } }}
-                            >
-                                <Image src={clapperboardImg} alt='' />
-                            </Avatar>
-                            <Text fz='1rem' lh='140%' fw={700}>
-                                {company.name}
-                            </Text>
-                        </Group>
-                    ))}
-                </Stack>
-            </MovieInfoPiece>
+            {hasDescription && (
+                <MovieInfoPiece title='Description' divider={hasCompanies}>
+                    <Text lh='140%'>{description}</Text>
+                </MovieInfoPiece>
+            )}
+            {hasCompanies && (
+                <MovieInfoPiece title='Production'>
+                    <Stack gap={rem(12)}>
+                        {companies.map((company) => (
+                            <Group key={company.id}>
+                                <Avatar
+                                    src={company.logo_path ? `${TMDB_IMAGES_URL}/w45/${company.logo_path}` : null}
+                                    alt={company.name}
+                                    size={rem(40)}
+                                    styles={{ image: { objectFit: 'contain', padding: 4 } }}
+                                >
+                                    <Image src={clapperboardImg} alt='' />
+                                </Avatar>
+                                <Text fz='1rem' lh='140%' fw={700}>
+                                    {company.name}
+                                </Text>
+                            </Group>
+                        ))}
+                    </Stack>
+                </MovieInfoPiece>
+            )}
         </Card>
     );
 }

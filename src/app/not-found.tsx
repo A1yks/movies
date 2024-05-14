@@ -19,7 +19,7 @@ export default function NotFound() {
                     }
                     mainText='We can’t find the page you are looking for'
                     button={
-                        <Button component={Link} href='/'>
+                        <Button component={Link} href='/movies'>
                             Go home
                         </Button>
                     }

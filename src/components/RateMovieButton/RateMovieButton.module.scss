@@ -1,0 +1,8 @@
+.rateIcon {
+    fill: var(--mantine-color-grey-3);
+
+    &.rated,
+    &:hover {
+        fill: var(--mantine-color-purple-filled);
+    }
+}

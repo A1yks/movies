@@ -24,7 +24,7 @@ export default async function MoviesLayout({ children }: React.PropsWithChildren
 
     return (
         <Stack gap={0} h='100%'>
-            <Title fz={32}>Movies</Title>
+            <Title>Movies</Title>
             <Box pos='sticky' top={-10} bg='grey.1' pt={rem(24)} pb={18} style={{ zIndex: 100 }}>
                 <Filters years={years} genres={genreValues} />
             </Box>

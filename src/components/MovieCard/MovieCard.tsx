@@ -5,8 +5,10 @@ import { Poster } from './Poster';
 import Star from '@images/star.svg';
 import c from 'clsx';
 import { MovieCardInfoPiece } from './MovieCardInfoPiece';
+import { RateMovieButton } from '../RateMovieButton';
+import { memo } from 'react';
 
-type MovieCardBaseProps = {
+export type MovieCardBaseProps = {
     posterPath?: string;
     title: string;
     year: string;
@@ -17,36 +19,36 @@ type MovieCardBaseProps = {
     userRating?: number;
 };
 
-type MovieCardCompactProps = {
+export type MovieCompactCardProps = {
     variant?: 'compact';
 } & MovieCardBaseProps;
 
-type MovieCardBigProps = {
+export type MovieBigCardProps = {
     variant: 'big';
     duration: string;
     premiereDate: string;
-    budget: string;
-    gross: string;
+    budget?: string;
+    gross?: string;
 } & MovieCardBaseProps;
 
-export type MovieCardProps = MovieCardCompactProps | MovieCardBigProps;
+export type MovieCardProps = MovieCompactCardProps | MovieBigCardProps;
 
-export function MovieCard(props: MovieCardProps) {
+export function MovieCardComponent(props: MovieCardProps) {
     const { posterPath, title, year, rating, genres, votes, id, userRating } = props;
 
-    const hasRating = userRating !== undefined;
     const isBig = props.variant === 'big';
+    const isCompact = !isBig;
     const infoTitleWidth = rem(140);
 
     return (
-        <Card>
-            <Group gap='0.5rem' align='flex-start' justify='space-between' wrap='nowrap'>
-                <Group gap='1rem' wrap='nowrap' align='stretch'>
-                    <Box component={isBig ? undefined : Link} href={`/movies/${id}`} lh={0} td='none'>
-                        <Poster posterPath={posterPath} width={isBig ? 250 : 119} height={isBig ? 352 : 170} />
-                    </Box>
-                    <Stack gap={0} justify='space-between'>
-                        <Stack gap='0.5rem' align='flex-start'>
+        <Card pos='relative'>
+            <Group gap='1rem' wrap='nowrap' align='stretch' maw={isCompact ? rem(375) : undefined}>
+                <Box component={isBig ? undefined : Link} href={`/movies/${id}`} lh={0} td='none'>
+                    <Poster posterPath={posterPath} width={isBig ? 250 : 119} height={isBig ? 352 : 170} />
+                </Box>
+                <Stack gap={0} justify='space-between'>
+                    <Stack gap='0.5rem' align='flex-start' maw={isCompact ? rem(250) : undefined}>
+                        <Group align='flex-start' w='100%'>
                             <Text
                                 component={isBig ? undefined : Link}
                                 href={`/movies/${id}`}
@@ -57,45 +59,58 @@ export function MovieCard(props: MovieCardProps) {
                             >
                                 {title}
                             </Text>
-                            <Text fw={400} c='grey.6'>
-                                {year}
-                            </Text>
-                            <Group gap='0.5rem'>
-                                <Group gap={4}>
-                                    <Star fill='var(--mantine-color-yellow-filled)' />
-                                    <Text fw={600} c='black' lh='125%'>
-                                        {rating}
-                                    </Text>
-                                </Group>
-                                <Text c='grey.6' lh='125%'>
-                                    ({votes})
+                            <Box ml='auto' pos='absolute' right={rem(24)} top={rem(24)}>
+                                <RateMovieButton
+                                    movie={{
+                                        id,
+                                        title,
+                                        genres,
+                                        posterPath,
+                                        year,
+                                        rating,
+                                        votes,
+                                        userRating,
+                                    }}
+                                />
+                            </Box>
+                        </Group>
+                        <Text fw={400} c='grey.6'>
+                            {year}
+                        </Text>
+                        <Group gap='0.5rem'>
+                            <Group gap={4}>
+                                <Star fill='var(--mantine-color-yellow-filled)' />
+                                <Text fw={600} c='black' lh='125%'>
+                                    {rating}
                                 </Text>
                             </Group>
-                        </Stack>
-                        <Stack gap={rem(12)} mt='0.5rem'>
-                            {isBig && (
-                                <>
-                                    <MovieCardInfoPiece title='Duration' value={props.duration} titleWidth={infoTitleWidth} />
-                                    <MovieCardInfoPiece title='Premiere date' value={props.premiereDate} titleWidth={infoTitleWidth} />
-                                    <MovieCardInfoPiece title='Budget' value={props.budget} titleWidth={infoTitleWidth} />
-                                    <MovieCardInfoPiece title='Gross worldwide' value={props.gross} titleWidth={infoTitleWidth} />
-                                </>
-                            )}
-                            <MovieCardInfoPiece title='Genres' value={genres.join(', ')} titleWidth={isBig ? infoTitleWidth : undefined} />
-                        </Stack>
-                    </Stack>
-                </Group>
-                <Tooltip label={hasRating ? 'Change rating' : 'Rate movie'}>
-                    <Group wrap='nowrap' gap={rem(4)} style={{ cursor: 'pointer' }}>
-                        <Star className={c(styles.rateIcon, { [styles.rated]: hasRating })} />
-                        {hasRating && (
-                            <Text fz={rem(16)} lh='125%' fw={600}>
-                                {userRating}
+                            <Text c='grey.6' lh='125%'>
+                                ({votes})
                             </Text>
+                        </Group>
+                    </Stack>
+                    <Stack gap={rem(12)} mt='0.5rem'>
+                        {isBig && (
+                            <>
+                                <MovieCardInfoPiece variant='big' title='Duration' value={props.duration} titleWidth={infoTitleWidth} />
+                                <MovieCardInfoPiece variant='big' title='Premiere date' value={props.premiereDate} titleWidth={infoTitleWidth} />
+                                {props.budget && <MovieCardInfoPiece variant='big' title='Budget' value={props.budget} titleWidth={infoTitleWidth} />}
+                                {props.gross && <MovieCardInfoPiece variant='big' title='Gross' value={props.gross} titleWidth={infoTitleWidth} />}
+                            </>
                         )}
-                    </Group>
-                </Tooltip>
+                        {genres.length > 0 && (
+                            <MovieCardInfoPiece
+                                variant={props.variant}
+                                title='Genres'
+                                value={genres.join(', ')}
+                                titleWidth={isBig ? infoTitleWidth : undefined}
+                            />
+                        )}
+                    </Stack>
+                </Stack>
             </Group>
         </Card>
     );
 }
+
+export const MovieCard = memo(MovieCardComponent);

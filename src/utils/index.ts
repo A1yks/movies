@@ -5,3 +5,8 @@ export * from './getCurrPage';
 export * from './getReleaseYears';
 export * from './getUrlInfo';
 export * from './splitQueryString';
+export * from './formatDate';
+export * from './formatMoney';
+export * from './formatDuration';
+export * from './getGenresAsString';
+export * from './getSearchParams';

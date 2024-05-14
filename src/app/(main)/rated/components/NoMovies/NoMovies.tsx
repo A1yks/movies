@@ -1,4 +1,4 @@
-import { Button, Stack, Text, rem } from '@mantine/core';
+import { Button } from '@mantine/core';
 import noMoviesImg from '@images/no-rated-movies.svg?url';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -10,7 +10,7 @@ export function NoMovies() {
             image={<Image src={noMoviesImg} alt='' />}
             mainText='You haven&#39;t rated any films yet'
             button={
-                <Button component={Link} href='/'>
+                <Button component={Link} href='/movies'>
                     Find movies
                 </Button>
             }

@@ -12,6 +12,7 @@ import {
     NumberInput,
     ScrollArea,
     Select,
+    Title,
     colorsTuple,
     createTheme,
     rem,
@@ -90,6 +91,11 @@ export const theme = createTheme({
                 root: {
                     border: '1px solid #F5F5F6',
                 },
+            },
+        }),
+        Title: Title.extend({
+            defaultProps: {
+                fz: rem(32),
             },
         }),
     },
