@@ -57,9 +57,6 @@ export function RatingModal({ movie, opened, onClose }: RatingModalProps) {
                 header: {
                     borderBottom: '1px solid var(--mantine-color-grey-2)',
                 },
-                close: {
-                    outline: 'none',
-                },
             }}
         >
             <Stack pt='1rem' gap='1rem'>

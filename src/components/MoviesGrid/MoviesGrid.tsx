@@ -9,7 +9,7 @@ export type MoviesGridProps = {
 
 export function MoviesGrid({ data }: MoviesGridProps) {
     return (
-        <SimpleGrid w='100%' cols={{ base: 1, sm: 2 }}>
+        <SimpleGrid w='100%' cols={{ base: 1, md: 2 }}>
             {data.map((movie) => (
                 <MovieCard key={movie.id} {...movie} />
             ))}

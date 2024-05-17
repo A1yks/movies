@@ -20,7 +20,6 @@ const NumberInputComponent = forwardRef<HTMLInputElement, NumberInputProps>((pro
         <MantineNumberInput
             ref={ref}
             handlersRef={handersRef}
-            radius='md'
             rightSection={
                 <Stack gap={2}>
                     <Center w={12} h={12} style={{ cursor: 'pointer', userSelect: 'none' }} onClick={() => handersRef.current?.increment()}>

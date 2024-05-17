@@ -1,7 +1,5 @@
 'use client';
 
-import { Center } from '@mantine/core';
+import { ErrorBoundary } from '@/components';
 
-export default function Error() {
-    return <Center h='100%'>Error</Center>;
-}
+export default ErrorBoundary;

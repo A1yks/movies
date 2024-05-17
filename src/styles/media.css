@@ -1,0 +1,5 @@
+@media screen and (max-width: $mantine-breakpoint-md) {
+    :root {
+        font-size: 14.5px;
+    }
+}

@@ -1,4 +1,5 @@
-import { getReleaseYears, splitQueryString } from '@/utils';
+import { getReleaseYears } from '@/utils/getReleaseYears';
+import { splitQueryString } from '@/utils/splitQueryString';
 import { z } from 'zod';
 
 const years = getReleaseYears();
@@ -12,15 +13,14 @@ export const getMoviesSchema = z
             .string()
             .transform((value) => splitQueryString(value, ',').map(Number))
             .pipe(z.number().array())
-            .optional()
-            .catch([]),
-        year: z.coerce.number().int().min(minYear).max(maxYear).optional().catch(maxYear),
+            .optional(),
+        year: z.coerce.number().int().min(minYear).max(maxYear).optional(),
         sortBy: z
             .enum(['popularity.desc', 'popularity.asc', 'vote_average.desc', 'vote_average.asc', 'vote_count.desc', 'vote_count.asc'])
             .optional()
-            .catch('popularity.desc'),
-        ratingFrom: z.coerce.number().min(0).max(9).optional().catch(0),
-        ratingTo: z.coerce.number().min(0).max(10).optional().catch(10),
+            .default('popularity.desc'),
+        ratingFrom: z.coerce.number().min(0).max(9).optional().default(0),
+        ratingTo: z.coerce.number().min(1).max(10).optional().default(10),
     })
     .refine(
         (schema) => {

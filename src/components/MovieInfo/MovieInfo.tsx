@@ -30,7 +30,8 @@ export function MovieInfo({ trailerKey, description, companies }: MovieInfoProps
                         style={{
                             border: 0,
                             width: rem(500),
-                            height: rem(281),
+                            maxWidth: '100%',
+                            aspectRatio: '16 / 9',
                             borderRadius: 8,
                             padding: 4,
                             background: 'var(--mantine-color-grey-1)',
@@ -56,7 +57,13 @@ export function MovieInfo({ trailerKey, description, companies }: MovieInfoProps
                                 >
                                     <Image src={clapperboardImg} alt='' />
                                 </Avatar>
-                                <Text fz='1rem' lh='140%' fw={700}>
+                                <Text
+                                    lh='140%'
+                                    fw={700}
+                                    style={{
+                                        fontSize: 'clamp(0.8rem, 4vw, 1rem)',
+                                    }}
+                                >
                                     {company.name}
                                 </Text>
                             </Group>

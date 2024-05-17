@@ -3,12 +3,10 @@
 import {
     Anchor,
     Avatar,
-    Box,
     Button,
     Card,
     ComboboxOption,
     DEFAULT_THEME,
-    Flex,
     NumberInput,
     ScrollArea,
     Select,
@@ -31,9 +29,14 @@ export const theme = createTheme({
     components: {
         Button: Button.extend({
             defaultProps: {
-                py: rem(10),
                 fz: rem(14),
                 fw: 600,
+                variant: 'filled',
+            },
+            classNames(theme, props) {
+                return {
+                    root: `${props.variant || 'filled'}-button`,
+                };
             },
         }),
         Select: Select.extend({
@@ -80,7 +83,7 @@ export const theme = createTheme({
         }),
         Card: Card.extend({
             defaultProps: {
-                p: rem(24),
+                padding: rem(24),
             },
         }),
         Avatar: Avatar.extend({
@@ -94,8 +97,11 @@ export const theme = createTheme({
             },
         }),
         Title: Title.extend({
-            defaultProps: {
-                fz: rem(32),
+            styles: {
+                root: {
+                    fontSize: rem(32),
+                    wordBreak: 'break-word',
+                },
             },
         }),
     },

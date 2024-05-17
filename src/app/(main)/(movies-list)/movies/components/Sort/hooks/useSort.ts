@@ -38,9 +38,11 @@ export function useSort() {
         }
     }, [prevSortBy, searchParams]);
 
-    function handleChange(value: string | null, option: ComboboxItem) {
+    function handleChange(value: string | null, option: ComboboxItem | null) {
+        if (value === null) return;
+
         setSelectedOption(option as Option);
-        setQueryParams('sortBy', value ?? '');
+        setQueryParams('sortBy', value);
     }
 
     return { selectedOption, handleChange };

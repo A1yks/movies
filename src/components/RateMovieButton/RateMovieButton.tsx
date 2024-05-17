@@ -18,7 +18,13 @@ export function RateMovieButton({ movie }: RateMovieButtonProps) {
     return (
         <>
             <Tooltip label={hasRating ? 'Change rating' : 'Rate movie'}>
-                <Group wrap='nowrap' gap={rem(4)} style={{ cursor: 'pointer' }} onClick={open}>
+                <Group
+                    component='button'
+                    wrap='nowrap'
+                    gap={rem(4)}
+                    onClick={open}
+                    style={{ padding: 0, flexShrink: 0, border: 'none', background: 'transparent', cursor: 'pointer' }}
+                >
                     <Star className={c(styles.rateIcon, { [styles.rated]: hasRating })} />
                     {hasRating && (
                         <Text fz={rem(16)} lh='125%' fw={600}>

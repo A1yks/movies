@@ -1,6 +1,7 @@
 'use client';
 
 import { MovieData, MoviesGrid, MoviesSkeleton, PageLoader } from '@/components';
+import { MOVIES_PAGE_SIZE } from '@/constants/movies';
 import { useRatedMovies } from '@/hooks';
 import { useLayoutEffect, useState } from 'react';
 
@@ -22,7 +23,7 @@ export function MoviesDisplayController({ data }: MoviesDisplayControllerProps) 
     }, [data, ratedMovies]);
 
     if (isLoading) {
-        return <MoviesSkeleton items={20} />;
+        return <MoviesSkeleton items={MOVIES_PAGE_SIZE} />;
     }
 
     return <MoviesGrid data={moviesData} />;

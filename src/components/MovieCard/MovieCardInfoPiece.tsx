@@ -12,11 +12,11 @@ export function MovieCardInfoPiece({ variant, title, value, titleWidth }: MovieC
     const isBig = variant === 'big';
 
     return (
-        <Group gap='0.5rem' align='flex-start' style={{ rowGap: 0, whiteSpace: isBig ? undefined : 'nowrap' }} wrap={isBig ? 'nowrap' : undefined}>
-            <Text c='grey.6' w={titleWidth} lh='125%'>
+        <Group gap='0.5rem' align='flex-start' style={{ rowGap: 0 }} wrap={isBig ? 'nowrap' : undefined}>
+            <Text c='grey.6' lh='125%' style={{ width: `clamp(5rem, 10vw, ${titleWidth})` }}>
                 {title}
             </Text>
-            <Text c='black' tt='capitalize' lh='125%' flex={1}>
+            <Text c='black' tt='capitalize' lh='125%' flex={isBig ? 1 : undefined}>
                 {value}
             </Text>
         </Group>

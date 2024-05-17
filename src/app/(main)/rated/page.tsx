@@ -2,7 +2,7 @@
 
 import { useRatedMovies } from '@/hooks';
 import { NoMovies } from './components';
-import { EmptySearchResult, LinkPagination, MovieData, MoviesGrid, MoviesSkeleton, PageLoader } from '@/components';
+import { EmptySearchResult, LinkPagination, MovieData, MoviesGrid, MoviesSkeleton } from '@/components';
 import { Stack, rem } from '@mantine/core';
 import { redirect, useSearchParams } from 'next/navigation';
 import { createQueryString } from '@/utils/createQueryString';

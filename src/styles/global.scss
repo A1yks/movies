@@ -1,3 +1,10 @@
+:root {
+    --hover-color: var(--mantine-color-purple-4);
+    --active-color: var(--mantine-color-purple-6);
+    --disabled-color: var(--mantine-color-grey-6);
+    --mantine-breakpoint-sm: 48em;
+}
+
 .poppins {
     font-family: var(--font-poppins);
 }
@@ -40,4 +47,32 @@ $activeOption: "[data-combobox-active='true']";
         stroke: var(--mantine-color-purple-filled);
         transform: rotate(180deg);
     }
+}
+
+.filled-button {
+    &:hover {
+        background: var(--hover-color);
+    }
+
+    &:active {
+        background: var(--active-color);
+    }
+}
+
+.transparent-button {
+    &:hover {
+        color: var(--hover-color) !important;
+    }
+
+    &:active {
+        color: var(--active-color) !important;
+    }
+
+    &:disabled {
+        color: var(--disabled-color) !important;
+    }
+}
+
+a:not(.no-underline):hover {
+    text-decoration: underline;
 }

@@ -1,4 +1,5 @@
 import { createQueryString } from '@/utils/createQueryString';
+import { deleteQueryParams } from '@/utils/deleteQueryParams';
 import { useDebouncedCallback } from '@mantine/hooks';
 import { usePathname, useRouter } from 'next/navigation';
 
@@ -17,7 +18,15 @@ export function useSetQueryParams({ debounce = 300, beforeChange }: UseSetQueryP
     const router = useRouter();
 
     function setQueryParams(nameOrQs: string, value?: string) {
-        let queryString = value === undefined ? nameOrQs : createQueryString(nameOrQs, value);
+        let queryString: string;
+
+        if (value === undefined) {
+            queryString = nameOrQs;
+        } else if (!value) {
+            queryString = deleteQueryParams([nameOrQs]);
+        } else {
+            queryString = createQueryString(nameOrQs, value);
+        }
 
         if (beforeChange !== undefined) {
             queryString = beforeChange(queryString);

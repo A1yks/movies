@@ -51,7 +51,11 @@ export function useMultiSelect({ selectedValues, onSelect }: UseMultiSelectConfi
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Backspace' && search.length === 0) {
             event.preventDefault();
-            handleValueRemove(value[value.length - 1].value);
+
+            const option = value[value.length - 1];
+
+            handleValueRemove(option.value);
+            onSelect?.(option.value, option);
         }
     };
 

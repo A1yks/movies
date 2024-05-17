@@ -1,14 +1,10 @@
-import { Group, Stack, Title, rem } from '@mantine/core';
-import { Search } from './components';
+import { Metadata } from 'next';
+import { LayoutContent } from './components';
+
+export const metadata: Metadata = {
+    title: 'Rated Movies',
+};
 
 export default function RatedMoviesLayout({ children }: React.PropsWithChildren) {
-    return (
-        <Stack gap={rem(40)} h='100%'>
-            <Group justify='space-between' align='center'>
-                <Title>Rated movies</Title>
-                <Search />
-            </Group>
-            {children}
-        </Stack>
-    );
+    return <LayoutContent>{children}</LayoutContent>;
 }

@@ -1,9 +1,10 @@
 import { getMovie } from '@/api/movies';
 import { formatNumber } from '@/utils';
-import { formatDate } from '@/utils/formatDate';
-import { formatDuration } from '@/utils/formatDuration';
-import { formatMoney } from '@/utils/formatMoney';
+import { formatDate, formatDuration, formatMoney } from '@/utils';
 import { MovieInfoContent } from './components';
+import { Metadata } from 'next';
+import { headers } from 'next/headers';
+import { TMDB_IMAGES_URL } from '@/constants/movies';
 
 type MoviePageProps = {
     params: {
@@ -34,4 +35,28 @@ export default async function MoviePage({ params }: MoviePageProps) {
             companies={movie.production_companies}
         />
     );
+}
+
+export async function generateMetadata({ params }: MoviePageProps): Promise<Metadata> {
+    const movie = await getMovie(params.id);
+
+    return {
+        title: movie.title,
+        description: movie.overview,
+        openGraph: {
+            title: movie.title,
+            description: movie.overview,
+            url: headers().get('x-url') as string,
+            siteName: process.env.NEXT_PUBLIC_SITE_NAME,
+            images: [
+                {
+                    url: `${TMDB_IMAGES_URL}/w780/${movie.poster_path}`,
+                    width: 780,
+                    height: 520,
+                },
+            ],
+            locale: 'en_US',
+            type: 'website',
+        },
+    };
 }

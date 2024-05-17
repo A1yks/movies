@@ -1,0 +1,6 @@
+.button {
+    &:not(.selected-link):hover {
+        color: var(--hover-color);
+        background: transparent;
+    }
+}

@@ -1,8 +1,13 @@
 import { Logo, SpecialPageContent } from '@/components';
 import notFoundImg from '@images/not-found.svg?url';
 import { Box, Button, Center, Stack, rem } from '@mantine/core';
+import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+    title: 'Not found',
+};
 
 export default function NotFound() {
     return (
@@ -13,9 +18,11 @@ export default function NotFound() {
             <Center flex={1} mt={rem(-24)} px={rem(24)}>
                 <SpecialPageContent
                     image={
-                        <Box pos='relative' maw={rem(656)} mah={rem(196)} w='100%' h='100%' mb='2rem'>
-                            <Image src={notFoundImg} alt='' fill />
-                        </Box>
+                        <Image
+                            src={notFoundImg}
+                            alt=''
+                            style={{ width: '100%', maxWidth: notFoundImg.width, height: 'auto', marginBottom: '2rem' }}
+                        />
                     }
                     mainText='We can’t find the page you are looking for'
                     button={

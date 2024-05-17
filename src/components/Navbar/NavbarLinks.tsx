@@ -28,7 +28,7 @@ export const NavbarLinks = () => {
     }, [findActiveRouteIndex]);
 
     return (
-        <Stack gap={10}>
+        <Stack component='nav' gap={10}>
             {routes.map((route, i) => (
                 <NavbarButton key={route.href} href={route.href} active={i === selectedIndex} onClick={() => setSelectedIndex(i)}>
                     {route.label}

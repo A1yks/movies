@@ -10,3 +10,5 @@ export * from './formatMoney';
 export * from './formatDuration';
 export * from './getGenresAsString';
 export * from './getSearchParams';
+export * from './withErrorsHandler';
+export * from './validateSearchParams';

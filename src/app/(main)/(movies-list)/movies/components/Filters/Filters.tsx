@@ -3,6 +3,7 @@
 import { MultiSelect, NumberInput, FilterTitle } from '@/components';
 import { Box, Button, ComboboxItem, Flex, Group, Select, Stack, rem } from '@mantine/core';
 import { useFilters } from './hooks/useFilters';
+import { YearSelect } from './YearSelect';
 
 export type FiltersProps = {
     years: string[];
@@ -11,6 +12,7 @@ export type FiltersProps = {
 
 export function Filters({ years, genres }: FiltersProps) {
     const {
+        filtersApplied,
         genresValue,
         yearValue,
         ratingFromValue,
@@ -25,7 +27,7 @@ export function Filters({ years, genres }: FiltersProps) {
     } = useFilters(genres);
 
     return (
-        <Flex gap={rem(16)} direction={{ md: 'row', xs: 'column' }}>
+        <Flex gap={rem(16)} direction={{ md: 'row', base: 'column' }}>
             <Stack flex={1} gap={rem(8)}>
                 <FilterTitle>Genres</FilterTitle>
                 <MultiSelect
@@ -39,7 +41,7 @@ export function Filters({ years, genres }: FiltersProps) {
             </Stack>
             <Stack flex={1} gap={rem(8)}>
                 <FilterTitle>Release year</FilterTitle>
-                <Select data={years} placeholder='Select release year' value={yearValue} onChange={handleYearChange} />
+                <YearSelect years={years} value={yearValue} onChange={handleYearChange} />
             </Stack>
             <Stack flex={1} gap={rem(8)}>
                 <FilterTitle>Ratings</FilterTitle>
@@ -64,14 +66,14 @@ export function Filters({ years, genres }: FiltersProps) {
                     />
                 </Group>
             </Stack>
-            <Stack gap={rem(8)}>
+            <Stack gap={rem(8)} align='center'>
                 {/* 
                     An empty element with the same height as FilterTitle 
-                    to make the reset button centered even if the genres select component 
+                    to make reset button centered even if genres select component 
                     grows in height 
                 */}
-                <Box h={rem(16 * 1.4)} />
-                <Button variant='transparent' c='grey.6' px={0} onClick={handleResetFilters}>
+                <Box h='1.4rem' visibleFrom='md' />
+                <Button variant='transparent' w='fit-content' px={0} onClick={handleResetFilters} disabled={!filtersApplied}>
                     Reset filters
                 </Button>
             </Stack>

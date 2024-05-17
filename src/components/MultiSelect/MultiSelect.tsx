@@ -3,6 +3,7 @@
 import { Combobox, Pill, Text, PillsInput, ScrollArea, rem, Input, Center, ComboboxItem } from '@mantine/core';
 import { useMultiSelect } from './hooks/useMultiSelect';
 import Down from '@images/down.svg';
+import { memo } from 'react';
 
 export type MultiSelectProps = {
     data: ComboboxItem[];
@@ -14,7 +15,7 @@ export type MultiSelectProps = {
     onSelect?: (value: string, option: ComboboxItem) => void;
 };
 
-export function MultiSelect({
+function MultiSelectComponent({
     data,
     selectedValues,
     placeholder,
@@ -35,10 +36,14 @@ export function MultiSelect({
         </Text>
     ));
 
+    const isActive = (index: number) => value.findIndex((item) => item.value === data[index].value) !== -1;
+
     const options = data
         .filter((item) => item.label.toLowerCase().includes(search.trim().toLowerCase()))
-        .map((item) => {
-            const active = value.find((i) => i.value === item.value) !== undefined;
+        .map((item, i, arr) => {
+            const active = isActive(i);
+            const isTopActive = i > 0 && isActive(i - 1);
+            const isBottomActive = i < arr.length - 1 && isActive(i + 1);
 
             return (
                 <Combobox.Option
@@ -47,6 +52,12 @@ export function MultiSelect({
                     active={active}
                     bg={active ? 'purple' : undefined}
                     c={active ? '#fff' : undefined}
+                    style={{
+                        borderTopLeftRadius: isTopActive ? 0 : undefined,
+                        borderTopRightRadius: isTopActive ? 0 : undefined,
+                        borderBottomLeftRadius: isBottomActive ? 0 : undefined,
+                        borderBottomRightRadius: isBottomActive ? 0 : undefined,
+                    }}
                 >
                     {item.label}
                 </Combobox.Option>
@@ -80,9 +91,7 @@ export function MultiSelect({
                             <Input.Placeholder>{placeholder}</Input.Placeholder>
                         )}
 
-                        <Combobox.EventsTarget>
-                            <PillsInput.Field type='hidden' onKeyDown={handleKeyDown} />
-                        </Combobox.EventsTarget>
+                        <PillsInput.Field type='hidden' readOnly onKeyDown={handleKeyDown} />
                     </Pill.Group>
                     <Center
                         data-position='right'
@@ -118,3 +127,5 @@ export function MultiSelect({
         </Combobox>
     );
 }
+
+export const MultiSelect = memo(MultiSelectComponent);

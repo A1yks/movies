@@ -14,6 +14,7 @@ function getRatingValue(rating: string | null) {
 
 export function useFiltersState(genresMap: Map<number, string>) {
     const searchParams = useSearchParams();
+    const filtersApplied = searchParams.size > 0;
 
     const rawSelectedGenres = searchParams.get('genres');
 
@@ -30,13 +31,13 @@ export function useFiltersState(genresMap: Map<number, string>) {
         [genresMap]
     );
 
-    // Current value is controlled by state to remove navigation delay if it were controlled by the search params
+    // Current value is controlled by state to remove navigation delay if it were controlled only by the search params
     const [genresValue, setGenresValue] = useState<ComboboxItem[]>(() => getGenresFromArr(selectedGenres));
     const [yearValue, setYearValue] = useState(selectedYear);
     const [ratingFromValue, setRatingFromValue] = useState(selectedRatingFrom);
     const [ratingToValue, setRatingToValue] = useState(selectedRatingTo);
-    const [minRatingTo, setMinRatingTo] = useState(typeof ratingFromValue === 'number' ? ratingFromValue + 1 : 0);
-    const [maxRatingFrom, setMaxRatingFrom] = useState(typeof ratingToValue === 'number' ? ratingToValue - 1 : 10);
+    const [minRatingTo, setMinRatingTo] = useState(typeof ratingFromValue === 'number' ? ratingFromValue + 1 : 1);
+    const [maxRatingFrom, setMaxRatingFrom] = useState(typeof ratingToValue === 'number' ? ratingToValue - 1 : 9);
 
     useEffect(() => {
         // If user navigates forward/backward current values will be updated with the value from the search params
@@ -46,11 +47,12 @@ export function useFiltersState(genresMap: Map<number, string>) {
             setRatingFromValue(selectedRatingFrom);
             setRatingToValue(selectedRatingTo);
             setMinRatingTo(typeof selectedRatingFrom === 'number' ? selectedRatingFrom + 1 : 0);
-            setMaxRatingFrom(typeof selectedRatingTo === 'number' ? selectedRatingTo - 1 : 10);
+            setMaxRatingFrom(typeof selectedRatingTo === 'number' ? selectedRatingTo - 1 : 9);
         }
     }, [currQueryString, getGenresFromArr, prevQueryString, rawSelectedGenres, selectedRatingFrom, selectedRatingTo, selectedYear]);
 
     return {
+        filtersApplied,
         genresValue,
         yearValue,
         ratingFromValue,

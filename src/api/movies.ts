@@ -2,27 +2,23 @@ import { cache } from 'react';
 import { api } from '.';
 import { GetGenresRes, GetMoviesReq, GetMoviesRes, MovieDetails } from './types';
 import { getMoviesSchema } from './validation';
+import { withErrorsHandler } from '@/utils';
 
-export const getGenres = cache(async () => {
-    const genres = await api.get<GetGenresRes>('/genre/movie/list');
-    const genresMap = new Map<number, string>();
+export const getGenres = cache(
+    withErrorsHandler(async () => {
+        const genres = await api.get<GetGenresRes>('/genre/movie/list');
+        const genresMap = new Map<number, string>();
 
-    genres.data.genres.forEach((genre) => {
-        genresMap.set(genre.id, genre.name);
-    });
+        genres.data.genres.forEach((genre) => {
+            genresMap.set(genre.id, genre.name);
+        });
 
-    return genresMap;
-});
+        return genresMap;
+    })
+);
 
 const getMoviesCached = cache(
-    async (
-        _page: GetMoviesReq['page'],
-        _genres: GetMoviesReq['genres'],
-        _year: GetMoviesReq['year'],
-        _ratingFrom: GetMoviesReq['ratingFrom'],
-        _ratingTo: GetMoviesReq['ratingTo'],
-        _sortBy: GetMoviesReq['sortBy']
-    ) => {
+    withErrorsHandler(async (_page: string, _genres: string, _year: string, _ratingFrom: string, _ratingTo: string, _sortBy: string) => {
         const { page, genres, year, ratingFrom, ratingTo, sortBy } = await getMoviesSchema.parseAsync({
             page: _page,
             genres: _genres,
@@ -45,15 +41,18 @@ const getMoviesCached = cache(
         });
 
         return movies.data;
-    }
+    })
 );
 
-export const getMovie = cache(async (id: string) => {
-    const movie = await api.get<MovieDetails>(`/movie/${id}`, { params: { append_to_response: 'videos' } });
+export const getMovie = cache(
+    withErrorsHandler(async (id: string) => {
+        const movie = await api.get<MovieDetails>(`/movie/${id}`, { params: { append_to_response: 'videos' } });
 
-    return movie.data;
-});
+        return movie.data;
+    })
+);
 
-export async function getMovies({ page, genres, year, ratingFrom, ratingTo, sortBy }: GetMoviesReq) {
+// A wrapper function that allows passing objects, as cache() compares objects only by references and not by their value
+export async function getMovies({ page, genres, year, ratingFrom, ratingTo, sortBy }: Record<keyof GetMoviesReq, string>) {
     return await getMoviesCached(page, genres, year, ratingFrom, ratingTo, sortBy);
 }

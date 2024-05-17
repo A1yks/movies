@@ -13,3 +13,7 @@ export * from './LinkPagination';
 export * from './SearchInput';
 export * from './EmptySearchResult';
 export * from './MoviesSkeleton';
+export * from './DrawerMenu';
+export * from './PageTitle';
+export * from './Navbar';
+export * from './ErrorBoundary';

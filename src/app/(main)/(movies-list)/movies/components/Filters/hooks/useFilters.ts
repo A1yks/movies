@@ -3,6 +3,7 @@ import { deleteQueryParams } from '@/utils/deleteQueryParams';
 import { useFiltersState } from './useFiltersState';
 import { ComboboxItem } from '@mantine/core';
 import { useMemo } from 'react';
+import useEvent from '@/hooks/useEvent';
 
 const comboboxItemsToStr = (items: ComboboxItem[]) => items.map((item) => item.value).join(',');
 
@@ -10,6 +11,7 @@ export function useFilters(genres: ComboboxItem[]) {
     const genresMap = useMemo(() => new Map<number, string>(genres.map((genre) => [Number(genre.value), genre.label])), [genres]);
 
     const {
+        filtersApplied,
         genresValue,
         yearValue,
         ratingFromValue,
@@ -28,7 +30,7 @@ export function useFilters(genres: ComboboxItem[]) {
         beforeChange: (qs: string) => deleteQueryParams(['page'], qs),
     });
 
-    function handleGenreSelect(genre: string, option: ComboboxItem) {
+    const handleGenreSelect = useEvent((genre: string, option: ComboboxItem) => {
         if (genresValue.find((item) => item.value === genre)) {
             const filtered = genresValue.filter((item) => item.value !== genre);
 
@@ -40,12 +42,12 @@ export function useFilters(genres: ComboboxItem[]) {
             setGenresValue(concated);
             setQueryParams('genres', comboboxItemsToStr(concated));
         }
-    }
+    });
 
-    function handleYearChange(year: string | null) {
+    const handleYearChange = useEvent((year: string | null) => {
         setYearValue(year);
         setQueryParams('year', year ?? '');
-    }
+    });
 
     function handleRatingFromChange(value: string | number) {
         if (value === '') {
@@ -91,6 +93,7 @@ export function useFilters(genres: ComboboxItem[]) {
     }
 
     return {
+        filtersApplied,
         genresValue,
         yearValue,
         ratingFromValue,

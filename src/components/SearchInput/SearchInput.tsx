@@ -2,9 +2,10 @@ import { Box, Button, TextInput, TextInputProps, rem } from '@mantine/core';
 
 export type SearchInputProps = {
     onSearch: () => void;
+    searchBtnText?: string;
 } & TextInputProps;
 
-export function SearchInput({ onSearch, maw, ...others }: SearchInputProps) {
+export function SearchInput({ onSearch, searchBtnText = 'Search', maw, ...others }: SearchInputProps) {
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         onSearch();
@@ -16,13 +17,14 @@ export function SearchInput({ onSearch, maw, ...others }: SearchInputProps) {
                 h={rem(48)}
                 w='100%'
                 rightSection={
-                    <Button h='100%' py={0} type='submit'>
-                        Search
+                    <Button h='100%' w={rem(88)} type='submit'>
+                        {searchBtnText}
                     </Button>
                 }
                 styles={{
                     section: {
                         padding: rem(8),
+                        paddingLeft: 0,
                         width: rem(100),
                     },
                     wrapper: {
