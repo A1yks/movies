@@ -1,6 +1,6 @@
 import { getMoviesSchema } from '@/api/validation';
 import { getSearchParams, getUrlInfo, deleteQueryParams } from './';
-import { redirect } from 'next/navigation';
+import { RedirectType, redirect } from 'next/navigation';
 
 export async function validateSearchParams(searchParams?: Record<string, string>) {
     const params = searchParams || getSearchParams();
@@ -12,7 +12,7 @@ export async function validateSearchParams(searchParams?: Record<string, string>
     const redirectTo = updatedQs === '' ? pathname : `${pathname}?${updatedQs}`;
 
     if (!success) {
-        return redirect(redirectTo);
+        return redirect(redirectTo, RedirectType.replace);
     }
 
     return { pathname, qs };

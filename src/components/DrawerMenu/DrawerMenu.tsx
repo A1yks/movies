@@ -12,7 +12,7 @@ export function DrawerMenu({ burgerSize, ...others }: React.PropsWithChildren<Dr
 
     return (
         <>
-            <Burger opened={opened} onClick={open} size={burgerSize} />
+            <Burger opened={opened} onClick={open} size={burgerSize} aria-label='Open menu' />
             <Drawer
                 opened={opened}
                 onClose={close}

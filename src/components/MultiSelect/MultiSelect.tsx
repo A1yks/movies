@@ -1,11 +1,12 @@
 'use client';
 
-import { Combobox, Pill, Text, PillsInput, ScrollArea, rem, Input, Center, ComboboxItem } from '@mantine/core';
+import { Combobox, Pill, Text, PillsInput, ScrollArea, rem, Input, Center, ComboboxItem, useMantineTheme } from '@mantine/core';
 import { useMultiSelect } from './hooks/useMultiSelect';
 import Down from '@images/down.svg';
 import { memo } from 'react';
 
 export type MultiSelectProps = {
+    id?: string;
     data: ComboboxItem[];
     selectedValues?: ComboboxItem[];
     placeholder?: string;
@@ -16,6 +17,7 @@ export type MultiSelectProps = {
 };
 
 function MultiSelectComponent({
+    id,
     data,
     selectedValues,
     placeholder,
@@ -24,6 +26,8 @@ function MultiSelectComponent({
     withSearch,
     onSelect,
 }: MultiSelectProps) {
+    const theme = useMantineTheme();
+    const selectStyles = theme.components.Select.styles;
     const { combobox, search, value, handleOpen, handleClose, handleValueSelect, handleChange, handleKeyDown } = useMultiSelect({
         selectedValues,
         onSelect,
@@ -68,15 +72,18 @@ function MultiSelectComponent({
         <Combobox store={combobox} onOptionSubmit={handleValueSelect} withinPortal={false}>
             <Combobox.DropdownTarget>
                 <PillsInput
+                    id={id}
                     onClick={handleOpen}
                     pos='relative'
+                    w='100%'
                     styles={{
                         input: {
                             display: 'flex',
                             cursor: 'pointer',
                             paddingLeft: rem(12),
                             paddingRight: rem(34),
-                            height: '100%',
+                            height: selectStyles.input.height,
+                            borderColor: selectStyles.input.borderColor,
                             alignItems: 'center',
                         },
                     }}
@@ -98,8 +105,9 @@ function MultiSelectComponent({
                         className='mantine-Input-section mantine-Select-section'
                         ml='auto'
                         pos='absolute'
-                        w={rem(34)}
-                        h={rem(34)}
+                        w={selectStyles.section.width}
+                        mr={selectStyles.section.marginRight}
+                        h='100%'
                         style={{ top: 0, right: 0 }}
                     >
                         <Down className={`dropdown-arrow ${combobox.dropdownOpened ? 'dropdown-arrow-opened' : ''}`} />

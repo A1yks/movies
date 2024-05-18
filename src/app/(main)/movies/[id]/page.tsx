@@ -4,7 +4,7 @@ import { formatDate, formatDuration, formatMoney } from '@/utils';
 import { MovieInfoContent } from './components';
 import { Metadata } from 'next';
 import { headers } from 'next/headers';
-import { TMDB_IMAGES_URL } from '@/constants/movies';
+import { SITE_NAME, TMDB_IMAGES_URL } from '@/constants/movies';
 
 type MoviePageProps = {
     params: {
@@ -47,7 +47,7 @@ export async function generateMetadata({ params }: MoviePageProps): Promise<Meta
             title: movie.title,
             description: movie.overview,
             url: headers().get('x-url') as string,
-            siteName: process.env.NEXT_PUBLIC_SITE_NAME,
+            siteName: SITE_NAME,
             images: [
                 {
                     url: `${TMDB_IMAGES_URL}/w780/${movie.poster_path}`,

@@ -42,12 +42,7 @@ export function Search() {
     }
 
     function handleSearch() {
-        if (search === '') {
-            return;
-        }
-
         setQueryParams('search', search);
-
         toggleClear();
     }
 

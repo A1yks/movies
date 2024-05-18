@@ -60,6 +60,8 @@ $activeOption: "[data-combobox-active='true']";
 }
 
 .transparent-button {
+    background: transparent;
+
     &:hover {
         color: var(--hover-color) !important;
     }
@@ -73,6 +75,14 @@ $activeOption: "[data-combobox-active='true']";
     }
 }
 
-a:not(.no-underline):hover {
+a.underline:hover {
     text-decoration: underline;
+}
+
+.select-input {
+    border-color: var(--mantine-color-grey-3);
+
+    &:focus {
+        border-color: var(--mantine-color-purple-filled);
+    }
 }

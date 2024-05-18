@@ -10,6 +10,7 @@ import {
 } from '@mantine/core';
 import Image from 'next/image';
 import { forwardRef, useRef } from 'react';
+import downImage from '@images/down-secondary.svg?url';
 
 export type NumberInputProps = MantineNumberInputProps;
 
@@ -23,10 +24,10 @@ const NumberInputComponent = forwardRef<HTMLInputElement, NumberInputProps>((pro
             rightSection={
                 <Stack gap={2}>
                     <Center w={12} h={12} style={{ cursor: 'pointer', userSelect: 'none' }} onClick={() => handersRef.current?.increment()}>
-                        <Image src='/images/down-secondary.svg' alt='' width={10} height={6} style={{ transform: 'rotate(180deg)' }} />
+                        <Image src={downImage} alt='' style={{ transform: 'rotate(180deg)' }} />
                     </Center>
                     <Center w={12} h={12} style={{ cursor: 'pointer', userSelect: 'none' }} onClick={() => handersRef.current?.decrement()}>
-                        <Image src='/images/down-secondary.svg' alt='' width={10} height={6} />
+                        <Image src={downImage} alt='' />
                     </Center>
                 </Stack>
             }

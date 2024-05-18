@@ -1,9 +1,9 @@
 import { useSetQueryParams } from '@/hooks';
 import { deleteQueryParams } from '@/utils/deleteQueryParams';
-import { useFiltersState } from './useFiltersState';
+import { availableFilters, useFiltersState } from './useFiltersState';
 import { ComboboxItem } from '@mantine/core';
 import { useMemo } from 'react';
-import useEvent from '@/hooks/useEvent';
+import { useEvent } from '@/hooks';
 
 const comboboxItemsToStr = (items: ComboboxItem[]) => items.map((item) => item.value).join(',');
 
@@ -89,7 +89,7 @@ export function useFilters(genres: ComboboxItem[]) {
         setMinRatingTo(1);
         setMaxRatingFrom(10);
 
-        setQueryParams(deleteQueryParams(['genres', 'year', 'ratingFrom', 'ratingTo', 'sortBy']));
+        setQueryParams(deleteQueryParams(availableFilters));
     }
 
     return {

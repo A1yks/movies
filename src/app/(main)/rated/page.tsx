@@ -45,7 +45,7 @@ export default function RatedMovies() {
     return (
         <Stack align='center' gap={rem(24)}>
             <MoviesGrid data={slicedData} />
-            {totalPages > 1 && <LinkPagination total={totalPages} pathname='/rated' />}
+            {totalPages > 1 && <LinkPagination total={totalPages} />}
         </Stack>
     );
 }

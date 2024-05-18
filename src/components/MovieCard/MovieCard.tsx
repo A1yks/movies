@@ -5,6 +5,8 @@ import Star from '@images/star.svg';
 import { MovieCardInfoPiece } from './MovieCardInfoPiece';
 import { RateMovieButton } from '../RateMovieButton';
 import { useMediaQuery } from '@mantine/hooks';
+import c from 'clsx';
+import { memo } from 'react';
 
 export type MovieCardBaseProps = {
     posterPath?: string;
@@ -49,7 +51,7 @@ const PosterWrapper = ({ children, variant, id, visibleFrom, hiddenFrom }: Poste
     </Box>
 );
 
-export function MovieCard(props: MovieCardProps) {
+export function MovieCardComponent(props: MovieCardProps) {
     const { posterPath, title, year, rating, genres, votes, id, userRating } = props;
 
     const isBig = props.variant === 'big';
@@ -59,20 +61,28 @@ export function MovieCard(props: MovieCardProps) {
 
     const basicInfo = (
         <Stack gap='0.5rem' align='flex-start'>
-            <Text component={isBig ? undefined : Link} href={`/movies/${id}`} c='purple' fw={600} lh={rem(24)}>
+            <Text
+                component={isBig ? undefined : Link}
+                href={`/movies/${id}`}
+                c='purple'
+                fz={rem(20)}
+                fw={600}
+                lh={rem(24)}
+                className={c({ underline: !isBig })}
+            >
                 {title}
             </Text>
-            <Text fw={400} c='grey.6'>
+            <Text fw={400} c='grey.6' aria-label='Release year'>
                 {year}
             </Text>
             <Group gap='0.5rem'>
                 <Group gap={4}>
-                    <Star fill='var(--mantine-color-yellow-filled)' />
-                    <Text fw={600} c='black' lh='125%'>
+                    <Star width={28} height={28} fill='var(--mantine-color-yellow-filled)' />
+                    <Text fw={600} c='black' lh='125%' aria-label='Movie rating'>
                         {rating}
                     </Text>
                 </Group>
-                <Text c='grey.6' lh='125%'>
+                <Text c='grey.6' lh='125%' aria-label='Votes count'>
                     ({votes})
                 </Text>
             </Group>
@@ -86,7 +96,7 @@ export function MovieCard(props: MovieCardProps) {
                     <MovieCardInfoPiece variant='big' title='Duration' value={props.duration} titleWidth={infoTitleWidth} />
                     <MovieCardInfoPiece variant='big' title='Premiere date' value={props.premiereDate} titleWidth={infoTitleWidth} />
                     {props.budget && <MovieCardInfoPiece variant='big' title='Budget' value={props.budget} titleWidth={infoTitleWidth} />}
-                    {props.gross && <MovieCardInfoPiece variant='big' title='Gross' value={props.gross} titleWidth={infoTitleWidth} />}
+                    {props.gross && <MovieCardInfoPiece variant='big' title='Gross worldwide' value={props.gross} titleWidth={infoTitleWidth} />}
                 </>
             )}
             {genres.length > 0 && (
@@ -101,7 +111,7 @@ export function MovieCard(props: MovieCardProps) {
     );
 
     return (
-        <Card>
+        <Card radius={rem(12)}>
             <Stack h='100%'>
                 {(showFullSizePoster || isBig) && (
                     <Card.Section pos='relative' hiddenFrom={isBig ? 'xs' : undefined}>
@@ -112,7 +122,8 @@ export function MovieCard(props: MovieCardProps) {
                                 posterPath={posterPath}
                                 imageProps={{
                                     fill: true,
-                                    sizes: '(max-width: 576px) 100vw',
+                                    sizes: '(max-width: 576px) 100vw, calc(50vw - 17.5rem)',
+                                    priority: isBig,
                                 }}
                             />
                         </PosterWrapper>
@@ -160,3 +171,5 @@ export function MovieCard(props: MovieCardProps) {
         </Card>
     );
 }
+
+export const MovieCard = memo(MovieCardComponent);

@@ -8,7 +8,7 @@ const maxYear = Number(years[0]);
 
 export const getMoviesSchema = z
     .object({
-        page: z.coerce.number().default(1).optional().catch(1),
+        page: z.coerce.number().int().default(1).optional().catch(1),
         genres: z
             .string()
             .transform((value) => splitQueryString(value, ',').map(Number))
@@ -19,8 +19,8 @@ export const getMoviesSchema = z
             .enum(['popularity.desc', 'popularity.asc', 'vote_average.desc', 'vote_average.asc', 'vote_count.desc', 'vote_count.asc'])
             .optional()
             .default('popularity.desc'),
-        ratingFrom: z.coerce.number().min(0).max(9).optional().default(0),
-        ratingTo: z.coerce.number().min(1).max(10).optional().default(10),
+        ratingFrom: z.coerce.number().int().min(0).max(9).optional().default(0),
+        ratingTo: z.coerce.number().int().min(1).max(10).optional().default(10),
     })
     .refine(
         (schema) => {

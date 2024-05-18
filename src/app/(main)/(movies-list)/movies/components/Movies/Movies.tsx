@@ -1,4 +1,3 @@
-import { Box, rem } from '@mantine/core';
 import { getGenres, getMovies } from '@/api/movies';
 import { formatNumber, getSearchParams, getGenresAsString } from '@/utils';
 import { MoviesDisplayController } from './MoviesDisplayController';
@@ -11,9 +10,9 @@ export async function Movies() {
 
     if (moviesData.total_results === 0) {
         return (
-            <Box mt={{ sm: rem(24) }}>
+            <div>
                 <EmptySearchResult />
-            </Box>
+            </div>
         );
     }
 

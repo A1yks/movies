@@ -44,17 +44,35 @@ export const theme = createTheme({
                 rightSection: <Down className='dropdown-arrow' />,
                 renderOption: ({ option }) => <>{option.label}</>,
             },
+            styles: {
+                input: {
+                    height: rem(42),
+                },
+                section: {
+                    width: rem(24),
+                    marginRight: rem(12),
+                },
+            },
+            classNames: {
+                input: 'select-input',
+            },
         }),
         NumberInput: NumberInput.extend({
-            defaultProps: {
-                styles: {
-                    control: {
-                        borderLeft: 0,
-                    },
-                    section: {
-                        overflow: 'hidden',
-                    },
+            styles: {
+                control: {
+                    borderLeft: 0,
                 },
+                section: {
+                    overflow: 'hidden',
+                    width: rem(12),
+                    marginRight: rem(12),
+                },
+                input: {
+                    height: rem(42),
+                },
+            },
+            classNames: {
+                input: 'select-input',
             },
         }),
         ScrollArea: ScrollArea.extend({
@@ -63,7 +81,7 @@ export const theme = createTheme({
                 mah: rem(180),
                 styles: {
                     thumb: {
-                        backgroundColor: 'grey.5',
+                        backgroundColor: 'var(--mantine-color-grey-5)',
                         borderRadius: rem(20),
                     },
                 },
@@ -92,7 +110,7 @@ export const theme = createTheme({
             },
             styles: {
                 root: {
-                    border: '1px solid #F5F5F6',
+                    border: '1px solid var(--mantine-color-grey-2)',
                 },
             },
         }),

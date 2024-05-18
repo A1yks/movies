@@ -19,7 +19,6 @@ export function MovieCardPoster({ posterPath, size = 'w342', imageProps = {}, ..
             <Box pos='relative' h='100%' {...others}>
                 <Image
                     src={`${TMDB_IMAGES_URL}/${size}/${posterPath}`}
-                    priority={true}
                     alt='poster'
                     style={{ flexShrink: 0, objectFit: 'cover', objectPosition: 'top', ...imgStyle }}
                     {...otherImgProps}
@@ -29,10 +28,10 @@ export function MovieCardPoster({ posterPath, size = 'w342', imageProps = {}, ..
     }
 
     return (
-        <Center bg='grey.2' style={{ border: '1px solid var(--mantine-color-grey-1)' }} {...others}>
+        <Center bg='grey.2' w={imageProps.width} h='100%' style={{ border: '1px solid var(--mantine-color-grey-1)' }} {...others}>
             <Stack gap={4} align='center'>
                 <Box component={Image} src='/images/no-image.svg' width={24} height={24} alt='' />
-                <Text c='grey.5' fz={rem(12)} fw={500} lh={rem(16)}>
+                <Text c='grey.5' fz={rem(12)} fw={500} lh={rem(16)} ta='center'>
                     No Poster
                 </Text>
             </Stack>

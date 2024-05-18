@@ -12,9 +12,11 @@ function getRatingValue(rating: string | null) {
     return !Number.isNaN(num) ? num : '';
 }
 
+export const availableFilters = ['genres', 'year', 'ratingFrom', 'ratingTo'];
+
 export function useFiltersState(genresMap: Map<number, string>) {
     const searchParams = useSearchParams();
-    const filtersApplied = searchParams.size > 0;
+    const filtersApplied = availableFilters.some((filter) => searchParams.has(filter));
 
     const rawSelectedGenres = searchParams.get('genres');
 
@@ -27,7 +29,21 @@ export function useFiltersState(genresMap: Map<number, string>) {
     const prevQueryString = usePrevious(searchParams.toString());
 
     const getGenresFromArr = useCallback(
-        (genres: string[]) => genres.map((genre) => ({ value: genre, label: genresMap.get(Number(genre)) as string })),
+        (genres: string[]) =>
+            genres
+                .map((genre) => {
+                    const genreId = Number(genre);
+
+                    if (!genresMap.has(genreId)) {
+                        return null;
+                    }
+
+                    return {
+                        value: genre,
+                        label: genresMap.get(genreId) || '',
+                    };
+                })
+                .filter(Boolean) as ComboboxItem[],
         [genresMap]
     );
 

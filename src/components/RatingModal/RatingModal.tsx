@@ -4,6 +4,7 @@ import { useRatedMovies } from '@/hooks';
 import { Button, Group, Modal, Rating, Stack, Text, rem } from '@mantine/core';
 import { useLayoutEffect, useState } from 'react';
 import { MovieCompactCardProps } from '../MovieCard';
+import Star from '@images/star.svg';
 
 export type RatingModalProps = {
     opened: boolean;
@@ -53,6 +54,7 @@ export function RatingModal({ movie, opened, onClose }: RatingModalProps) {
             centered
             opened={opened}
             onClose={onClose}
+            size={rem(380)}
             styles={{
                 header: {
                     borderBottom: '1px solid var(--mantine-color-grey-2)',
@@ -63,7 +65,14 @@ export function RatingModal({ movie, opened, onClose }: RatingModalProps) {
                 <Text fz='1rem' fw={700} lh='140%'>
                     {movie.title}
                 </Text>
-                <Rating value={ratingValue} count={10} size={rem(28)} onChange={setRatingValue} />
+                <Rating
+                    value={ratingValue}
+                    count={10}
+                    size={rem(28)}
+                    onChange={setRatingValue}
+                    emptySymbol={<Star width={28} height={28} fill='var(--mantine-color-grey-3)' />}
+                    styles={{ root: { gap: rem(7.5) }, symbolBody: { lineHeight: 0 } }}
+                />
                 <Group gap='1rem'>
                     <Button onClick={handleSave}>Save</Button>
                     <Button variant='transparent' onClick={handleRemove} px={0} py={0}>

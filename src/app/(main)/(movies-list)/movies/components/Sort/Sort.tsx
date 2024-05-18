@@ -8,9 +8,9 @@ export function Sort() {
     const { selectedOption, handleChange } = useSort();
 
     return (
-        <Stack>
-            <FilterTitle>Sort by</FilterTitle>
-            <Select data={options} value={selectedOption.value} onChange={handleChange} />
+        <Stack gap='0.5rem' align='flex-start'>
+            <FilterTitle htmlFor='sort'>Sort by</FilterTitle>
+            <Select id='sort' w='100%' data={options} value={selectedOption.value} onChange={handleChange} />
         </Stack>
     );
 }

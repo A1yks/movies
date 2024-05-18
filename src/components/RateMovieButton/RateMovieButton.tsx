@@ -14,18 +14,20 @@ export type RateMovieButtonProps = {
 export function RateMovieButton({ movie }: RateMovieButtonProps) {
     const [opened, { open, close }] = useDisclosure();
     const hasRating = movie.userRating !== undefined && movie.userRating > 0;
+    const label = hasRating ? 'Change rating' : 'Rate movie';
 
     return (
         <>
-            <Tooltip label={hasRating ? 'Change rating' : 'Rate movie'}>
+            <Tooltip label={label}>
                 <Group
                     component='button'
                     wrap='nowrap'
                     gap={rem(4)}
                     onClick={open}
                     style={{ padding: 0, flexShrink: 0, border: 'none', background: 'transparent', cursor: 'pointer' }}
+                    aria-label={label}
                 >
-                    <Star className={c(styles.rateIcon, { [styles.rated]: hasRating })} />
+                    <Star width={28} height={28} className={c(styles.rateIcon, { [styles.rated]: hasRating })} />
                     {hasRating && (
                         <Text fz={rem(16)} lh='125%' fw={600}>
                             {movie.userRating}

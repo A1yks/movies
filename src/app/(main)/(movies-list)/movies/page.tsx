@@ -29,7 +29,7 @@ export default async function MoviesPage({ searchParams }: MoviesPageProps) {
             </Suspense>
             {showPagination && (
                 <Flex justify={{ sm: 'flex-end', base: 'center' }} mt='auto'>
-                    <LinkPagination total={Math.min(moviesData.total_pages, MAX_PAGES)} pathname='/movies' />
+                    <LinkPagination total={Math.min(moviesData.total_pages, MAX_PAGES)} />
                 </Flex>
             )}
         </Stack>

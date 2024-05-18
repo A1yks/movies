@@ -23,7 +23,6 @@ export const NavbarButton = ({ children, active, ...others }: NavbarButtonProps)
             styles={{
                 root: {
                     transform: 'none',
-                    textDecoration: 'none',
                 },
             }}
             className={styles.button}

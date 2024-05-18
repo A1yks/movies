@@ -1,6 +1,6 @@
 'use client';
 
-import { MovieData, MoviesGrid, MoviesSkeleton, PageLoader } from '@/components';
+import { MovieData, MoviesGrid, MoviesSkeleton } from '@/components';
 import { MOVIES_PAGE_SIZE } from '@/constants/movies';
 import { useRatedMovies } from '@/hooks';
 import { useLayoutEffect, useState } from 'react';
