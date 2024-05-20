@@ -1,9 +1,7 @@
 import '@mantine/core/styles.layer.css';
-import '@mantine/notifications/styles.layer.css';
 import '@/styles/global.scss';
 import '@/styles/media.css';
 import { MantineProvider, ColorSchemeScript } from '@mantine/core';
-import { Notifications } from '@mantine/notifications';
 import { theme } from '@/config/theme';
 import { Inter, Poppins } from 'next/font/google';
 import { Metadata } from 'next';
@@ -21,10 +19,7 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
                 <meta name='viewport' content='minimum-scale=1, initial-scale=1, maximum-scale=1, width=device-width' />
             </head>
             <body className={inter.className}>
-                <MantineProvider theme={theme}>
-                    <Notifications />
-                    {children}
-                </MantineProvider>
+                <MantineProvider theme={theme}>{children}</MantineProvider>
             </body>
         </html>
     );
