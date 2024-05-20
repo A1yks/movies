@@ -70,8 +70,8 @@ export function RatingModal({ movie, opened, onClose }: RatingModalProps) {
                     count={10}
                     size={rem(28)}
                     onChange={setRatingValue}
-                    emptySymbol={<Star width={28} height={28} fill='var(--mantine-color-grey-3)' />}
-                    styles={{ root: { gap: rem(7.5) }, symbolBody: { lineHeight: 0 } }}
+                    emptySymbol={<Star fill='var(--mantine-color-grey-3)' style={{ width: rem(28), height: rem(28) }} />}
+                    styles={{ root: { justifyContent: 'space-between', width: '100%' }, symbolBody: { lineHeight: 0 } }}
                 />
                 <Group gap='1rem'>
                     <Button onClick={handleSave}>Save</Button>

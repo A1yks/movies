@@ -77,7 +77,7 @@ export function MovieCardComponent(props: MovieCardProps) {
             </Text>
             <Group gap='0.5rem'>
                 <Group gap={4}>
-                    <Star width={28} height={28} fill='var(--mantine-color-yellow-filled)' />
+                    <Star fill='var(--mantine-color-yellow-filled)' style={{ width: rem(28), height: rem(28) }} />
                     <Text fw={600} c='black' lh='125%' aria-label='Movie rating'>
                         {rating}
                     </Text>
@@ -138,7 +138,7 @@ export function MovieCardComponent(props: MovieCardProps) {
                                     posterPath={posterPath}
                                     imageProps={{
                                         width: isBig ? 250 : 119,
-                                        height: isBig ? 352 : 170,
+                                        height: isBig ? 375 : 170,
                                         style: {
                                             height: '100%',
                                         },

@@ -6,6 +6,7 @@ import { createQueryString } from '@/utils/createQueryString';
 import Link from 'next/link';
 import { memo, useMemo } from 'react';
 import styles from './LinkPagination.module.scss';
+import { parseNumber } from '@/utils/parseNumber';
 
 export type PaginationProps = {
     total: number;
@@ -14,7 +15,7 @@ export type PaginationProps = {
 function LinkPaginationComponent({ total }: PaginationProps) {
     const searchParams = useSearchParams();
     const pathname = usePathname();
-    const page = parseInt(searchParams.get('page') || '1');
+    const page = parseNumber(searchParams.get('page'), 1);
     const pages = useMemo(() => Array.from({ length: total }).map((_, i) => i + 1), [total]);
 
     const getQs = (page: string | number) => createQueryString('page', page.toString(), searchParams.toString());
@@ -62,39 +63,6 @@ function LinkPaginationComponent({ total }: PaginationProps) {
                 />
             </Group>
         </Pagination.Root>
-    );
-
-    return (
-        <Pagination
-            total={total}
-            value={page}
-            getItemProps={(page) => ({
-                component: Link,
-                href: `${pathname}?${getQs(page)}`,
-                className: 'no-underline',
-            })}
-            getControlProps={(control) => {
-                if (control === 'next') {
-                    return {
-                        component: Link,
-                        href: `${pathname}?${getQs(page + 1)}`,
-                        className: 'no-underline',
-                        'aria-label': 'Next page',
-                    };
-                }
-
-                if (control === 'previous') {
-                    return {
-                        component: Link,
-                        href: `${pathname}?${getQs(page - 1)}`,
-                        className: 'no-underline',
-                        'aria-label': 'Previous page',
-                    };
-                }
-
-                return {};
-            }}
-        />
     );
 }
 

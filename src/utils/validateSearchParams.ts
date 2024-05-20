@@ -5,7 +5,7 @@ import { RedirectType, redirect } from 'next/navigation';
 export async function validateSearchParams(searchParams?: Record<string, string>) {
     const params = searchParams || getSearchParams();
     const { pathname, qs } = getUrlInfo();
-    const { success, error } = await getMoviesSchema.safeParseAsync(params);
+    const { success, error, data } = await getMoviesSchema.safeParseAsync(params);
 
     const badFields = error?.errors.map((error) => error.path[0].toString()) || [];
     const updatedQs = deleteQueryParams(badFields, qs);
@@ -15,5 +15,5 @@ export async function validateSearchParams(searchParams?: Record<string, string>
         return redirect(redirectTo, RedirectType.replace);
     }
 
-    return { pathname, qs };
+    return { pathname, qs, data };
 }

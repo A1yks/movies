@@ -1,6 +1,6 @@
 'use client';
 
-import { Group, Skeleton, Stack, rem } from '@mantine/core';
+import { Flex, Group, Skeleton, Stack, rem } from '@mantine/core';
 import { useRatedMovies } from '@/hooks';
 import { MovieData, MoviesSkeleton, PageTitle } from '@/components';
 import { RATED_MOVIES_PAGE_SIZE } from '@/constants/movies';
@@ -12,7 +12,7 @@ export function LayoutContent({ children }: React.PropsWithChildren) {
     const ratedMovies = Object.values(data || {}) as MovieData[];
 
     return (
-        <Stack gap={rem(40)} h='100%'>
+        <Flex direction='column' gap={{ sm: rem(40), base: '1rem' }} h='100%'>
             {isLoading ? (
                 <>
                     <Group justify='space-between' align='center'>
@@ -26,12 +26,12 @@ export function LayoutContent({ children }: React.PropsWithChildren) {
                     {ratedMovies.length > 0 && (
                         <Group justify='space-between' align='center'>
                             <PageTitle>Rated Movies</PageTitle>
-                            <Search />
+                            <Search maw={{ sm: rem(490) }} />
                         </Group>
                     )}
                     {children}
                 </>
             )}
-        </Stack>
+        </Flex>
     );
 }

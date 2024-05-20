@@ -1,5 +1,6 @@
+import { MAX_PAGES } from '@/constants/movies';
 import { getReleaseYears } from '@/utils/getReleaseYears';
-import { splitQueryString } from '@/utils/splitQueryString';
+import { splitQueryParam } from '@/utils/splitQueryParam';
 import { z } from 'zod';
 
 const years = getReleaseYears();
@@ -8,10 +9,10 @@ const maxYear = Number(years[0]);
 
 export const getMoviesSchema = z
     .object({
-        page: z.coerce.number().int().default(1).optional().catch(1),
+        page: z.coerce.number().int().min(1).max(MAX_PAGES).default(1).optional(),
         genres: z
             .string()
-            .transform((value) => splitQueryString(value, ',').map(Number))
+            .transform((value) => splitQueryParam(value, ',').map(Number))
             .pipe(z.number().array())
             .optional(),
         year: z.coerce.number().int().min(minYear).max(maxYear).optional(),

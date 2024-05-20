@@ -4,10 +4,10 @@ import { useLayoutEffect, useState } from 'react';
 import { SearchInput } from '@/components';
 import { useSetQueryParams } from '@/hooks';
 import { deleteQueryParams } from '@/utils/deleteQueryParams';
-import { rem } from '@mantine/core';
+import { TextInputProps } from '@mantine/core';
 import { useSearchParams } from 'next/navigation';
 
-export function Search() {
+export function Search(props: TextInputProps) {
     const searchParams = useSearchParams();
     const searchValue = searchParams.get('search') || '';
     const [search, setSearch] = useState(searchValue);
@@ -57,11 +57,11 @@ export function Search() {
     return (
         <SearchInput
             placeholder='Search movie title'
-            maw={rem(490)}
             value={search}
             onSearch={handleSearch}
             onChange={handleChange}
             searchBtnText={searchBtnText}
+            {...props}
         />
     );
 }

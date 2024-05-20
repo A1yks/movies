@@ -27,7 +27,7 @@ export function RateMovieButton({ movie }: RateMovieButtonProps) {
                     style={{ padding: 0, flexShrink: 0, border: 'none', background: 'transparent', cursor: 'pointer' }}
                     aria-label={label}
                 >
-                    <Star width={28} height={28} className={c(styles.rateIcon, { [styles.rated]: hasRating })} />
+                    <Star className={c(styles.rateIcon, { [styles.rated]: hasRating })} />
                     {hasRating && (
                         <Text fz={rem(16)} lh='125%' fw={600}>
                             {movie.userRating}

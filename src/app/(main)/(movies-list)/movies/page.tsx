@@ -6,7 +6,8 @@ import { getMovies } from '@/api/movies';
 import { MAX_PAGES, MOVIES_PAGE_SIZE } from '@/constants/movies';
 import { GetMoviesReq } from '@/api/types';
 import { Movies } from './components';
-import { validateSearchParams } from '@/utils';
+import { createQueryString, validateSearchParams } from '@/utils';
+import { RedirectType, redirect } from 'next/navigation';
 
 type MoviesPageProps = {
     searchParams: Record<keyof GetMoviesReq, string>;
@@ -17,9 +18,14 @@ export const metadata: Metadata = {
 };
 
 export default async function MoviesPage({ searchParams }: MoviesPageProps) {
-    const { qs } = await validateSearchParams(searchParams);
+    const { qs, data } = await validateSearchParams(searchParams);
 
     const moviesData = await getMovies(searchParams);
+
+    if (data.page !== undefined && data.page > moviesData.total_pages) {
+        redirect(`/movies?${createQueryString('page', moviesData.total_pages.toString(), qs)}`, RedirectType.replace);
+    }
+
     const showPagination = moviesData.total_results > 0 && moviesData.total_pages > 1;
 
     return (

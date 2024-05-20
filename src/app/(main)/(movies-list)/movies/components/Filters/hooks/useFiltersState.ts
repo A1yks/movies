@@ -1,4 +1,4 @@
-import { splitQueryString } from '@/utils/splitQueryString';
+import { splitQueryParam } from '@/utils/splitQueryParam';
 import { ComboboxItem } from '@mantine/core';
 import { usePrevious } from '@mantine/hooks';
 import { useSearchParams } from 'next/navigation';
@@ -20,7 +20,7 @@ export function useFiltersState(genresMap: Map<number, string>) {
 
     const rawSelectedGenres = searchParams.get('genres');
 
-    const selectedGenres = splitQueryString(rawSelectedGenres, ',');
+    const selectedGenres = splitQueryParam(rawSelectedGenres, ',');
     const selectedYear = searchParams.get('year');
     const selectedRatingFrom = getRatingValue(searchParams.get('ratingFrom'));
     const selectedRatingTo = getRatingValue(searchParams.get('ratingTo'));
@@ -58,7 +58,7 @@ export function useFiltersState(genresMap: Map<number, string>) {
     useEffect(() => {
         // If user navigates forward/backward current values will be updated with the value from the search params
         if (currQueryString !== prevQueryString) {
-            setGenresValue(getGenresFromArr(splitQueryString(rawSelectedGenres, ',')));
+            setGenresValue(getGenresFromArr(splitQueryParam(rawSelectedGenres, ',')));
             setYearValue(selectedYear);
             setRatingFromValue(selectedRatingFrom);
             setRatingToValue(selectedRatingTo);

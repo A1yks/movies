@@ -1,6 +1,6 @@
 import { getGenres, getMovies } from '@/api/movies';
 import { formatNumber, getSearchParams, getGenresAsString } from '@/utils';
-import { MoviesDisplayController } from './MoviesDisplayController';
+import { ClientMovies } from './ClientMovies';
 import { EmptySearchResult, MovieData } from '@/components';
 import { GetMoviesReq } from '@/api/types';
 
@@ -26,5 +26,5 @@ export async function Movies() {
         votes: formatNumber(movie.vote_count || 0),
     }));
 
-    return <MoviesDisplayController data={data} />;
+    return <ClientMovies data={data} />;
 }

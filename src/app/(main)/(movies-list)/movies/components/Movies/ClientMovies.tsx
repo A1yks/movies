@@ -9,7 +9,7 @@ export type MoviesDisplayControllerProps = {
     data: MovieData[];
 };
 
-export function MoviesDisplayController({ data }: MoviesDisplayControllerProps) {
+export function ClientMovies({ data }: MoviesDisplayControllerProps) {
     const [moviesData, setMoviesData] = useState<MovieData[]>([]);
     const { isLoading, data: ratedMovies } = useRatedMovies();
 

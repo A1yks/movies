@@ -21,11 +21,21 @@ export function MovieInfoContent({ trailerKey, description, companies, ...movieC
         return <PageLoader />;
     }
 
+    function handleBack(e: React.MouseEvent<HTMLAnchorElement>) {
+        e.preventDefault();
+
+        if (window.history.length > 1) {
+            router.back();
+        } else {
+            router.push('/movies');
+        }
+    }
+
     return (
         <Stack gap={rem(20)}>
             <PageTitle hiddenFrom='sm'>Menu</PageTitle>
             <Breadcrumbs style={{ flexWrap: 'wrap' }}>
-                <Anchor component={Link} href='/#back' lh='143%' fz={rem(14)} onClick={router.back}>
+                <Anchor component={Link} href='/#back' lh='143%' fz={rem(14)} onClick={handleBack}>
                     Movies
                 </Anchor>
                 <Anchor component={Link} href={`/movies/${movieCardProps.id}`} lh='143%' fz={rem(14)}>

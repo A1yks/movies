@@ -8,11 +8,12 @@ import { redirect, useSearchParams } from 'next/navigation';
 import { createQueryString } from '@/utils/createQueryString';
 import { useMemo } from 'react';
 import { RATED_MOVIES_PAGE_SIZE } from '@/constants/movies';
+import { parseNumber } from '@/utils/parseNumber';
 
 export default function RatedMovies() {
     const { isLoading, data } = useRatedMovies();
     const searchParams = useSearchParams();
-    const page = Number(searchParams.get('page') ?? 1);
+    const page = parseNumber(searchParams.get('page'), 1);
     const search = searchParams.get('search') || '';
 
     const ratedMovies = Object.values(data || {}) as MovieData[];
