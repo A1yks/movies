@@ -1,4 +1,5 @@
 import { AxiosError } from 'axios';
+import { notFound } from 'next/navigation';
 import { ZodError } from 'zod';
 
 type Callback = (...args: any[]) => unknown;
@@ -15,6 +16,10 @@ export function withErrorsHandler<T extends Callback>(callback: T) {
             if (err instanceof AxiosError) {
                 if (err.code === 'ECONNREFUSED') {
                     throw new Error('Unable to load data because server is unreachable');
+                }
+
+                if (err.response?.status === 404) {
+                    notFound();
                 }
             }
 
