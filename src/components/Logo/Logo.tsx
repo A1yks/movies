@@ -1,6 +1,6 @@
-import { Anchor, Group, Text } from '@mantine/core';
 import Link from 'next/link';
-import Image from 'next/image';
+import { Image } from '../Image';
+import { Anchor, Group, Text } from '@mantine/core';
 import { SITE_NAME } from '@/constants/movies';
 
 export function Logo() {

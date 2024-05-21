@@ -1,8 +1,7 @@
-import { Logo, SpecialPageContent } from '@/components';
+import { Logo, SpecialPageContent, Image } from '@/components';
 import notFoundImg from '@images/not-found.svg?url';
 import { Box, Button, Center, Stack, rem } from '@mantine/core';
 import { Metadata } from 'next';
-import Image from 'next/image';
 import Link from 'next/link';
 
 export const metadata: Metadata = {

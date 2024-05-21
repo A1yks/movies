@@ -1,9 +1,9 @@
+import { Image } from '../Image';
 import { ProductionCompany } from '@/api/types';
 import { Avatar, Card, Group, Stack, Text, rem } from '@mantine/core';
 import { MovieInfoPiece } from './MovieInfoPiece';
 import { TMDB_IMAGES_URL } from '@/constants/movies';
 import clapperboardImg from '@images/clapperboard.svg?url';
-import Image from 'next/image';
 
 export type MovieInfoProps = {
     trailerKey?: string;

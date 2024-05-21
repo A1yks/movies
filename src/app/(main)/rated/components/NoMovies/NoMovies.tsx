@@ -1,6 +1,5 @@
-import { SpecialPageContent } from '@/components';
+import { SpecialPageContent, Image } from '@/components';
 import { Button } from '@mantine/core';
-import Image from 'next/image';
 import Link from 'next/link';
 import noMoviesImg from '@images/no-rated-movies.svg?url';
 

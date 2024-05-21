@@ -1,4 +1,4 @@
-import Image, { ImageProps } from 'next/image';
+import { Image, ImageProps } from '@/components';
 import { Box, BoxProps, Center, Stack, Text, rem } from '@mantine/core';
 import { TMDB_IMAGES_URL } from '@/constants/movies';
 import { MovieCardProps } from './MovieCard';
@@ -19,7 +19,7 @@ export function MovieCardPoster({ posterPath, size = 'w342', imageProps = {}, ..
             <Box pos='relative' h='100%' {...others}>
                 <Image
                     src={`${TMDB_IMAGES_URL}/${size}/${posterPath}`}
-                    alt='poster'
+                    alt=''
                     style={{ flexShrink: 0, objectFit: 'cover', objectPosition: 'top', ...imgStyle }}
                     {...otherImgProps}
                 />

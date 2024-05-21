@@ -8,7 +8,7 @@ import {
     Center,
     NumberInputHandlers,
 } from '@mantine/core';
-import Image from 'next/image';
+import { Image } from '../Image';
 import { forwardRef, useRef } from 'react';
 import downImage from '@images/down-secondary.svg?url';
 

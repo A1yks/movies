@@ -1,5 +1,5 @@
+import { Image } from '../Image';
 import { Box, Button, TextInput, TextInputProps, rem } from '@mantine/core';
-import Image from 'next/image';
 import searchImg from '@images/search.svg?url';
 import styles from './SearchInput.module.scss';
 

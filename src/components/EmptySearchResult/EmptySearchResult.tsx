@@ -1,6 +1,6 @@
+import { Image } from '../Image';
 import { SpecialPageContent } from '../SpecialPageContent';
 import noMoviesImg from '@images/no-movies.svg?url';
-import Image from 'next/image';
 
 export type EmptySearchResultProps = {
     text?: string;
