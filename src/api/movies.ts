@@ -1,8 +1,9 @@
 import { cache } from 'react';
 import { api } from '.';
 import { GetGenresRes, GetMoviesReq, GetMoviesRes, MovieDetails } from './types';
-import { getMoviesSchema } from './validation';
+import { getMovieSchema, getMoviesSchema } from './validation';
 import { withErrorsHandler } from '@/utils';
+import { notFound } from 'next/navigation';
 
 export const getGenres = cache(
     withErrorsHandler(async () => {
@@ -46,7 +47,13 @@ const getMoviesCached = cache(
 
 export const getMovie = cache(
     withErrorsHandler(async (id: string) => {
-        const movie = await api.get<MovieDetails>(`/movie/${id}`, { params: { append_to_response: 'videos' } });
+        const { success, data } = await getMovieSchema.safeParseAsync({ id });
+
+        if (!success) {
+            return null;
+        }
+
+        const movie = await api.get<MovieDetails>(`/movie/${data?.id}`, { params: { append_to_response: 'videos' } });
 
         return movie.data;
     })

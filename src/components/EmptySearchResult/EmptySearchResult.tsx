@@ -9,7 +9,7 @@ export type EmptySearchResultProps = {
 export function EmptySearchResult({ text = "We don't have such movies, look for another one" }: EmptySearchResultProps) {
     return (
         <SpecialPageContent
-            image={<Image src={noMoviesImg} alt='' style={{ width: '100%', maxWidth: noMoviesImg.width, height: 'auto' }} />}
+            image={<Image priority src={noMoviesImg} alt='' style={{ width: '100%', maxWidth: noMoviesImg.width, height: 'auto' }} />}
             mainText={text}
         />
     );

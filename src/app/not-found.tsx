@@ -18,6 +18,7 @@ export default function NotFound() {
                 <SpecialPageContent
                     image={
                         <Image
+                            priority
                             src={notFoundImg}
                             alt=''
                             style={{ width: '100%', maxWidth: notFoundImg.width, height: 'auto', marginBottom: '2rem' }}

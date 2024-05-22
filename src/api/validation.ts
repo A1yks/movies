@@ -33,3 +33,7 @@ export const getMoviesSchema = z
         },
         { message: 'Rating from must be less than rating to and both must be between 0 and 10', path: ['ratingFrom', 'ratingTo'] }
     );
+
+export const getMovieSchema = z.object({
+    id: z.coerce.number().int().min(1),
+});

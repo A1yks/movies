@@ -9,8 +9,6 @@ export function withErrorsHandler<T extends Callback>(callback: T) {
         try {
             return await callback(...args);
         } catch (err) {
-            console.error(err);
-
             // Errors are thrown to the closest error boundary with custom message
 
             if (err instanceof AxiosError) {
