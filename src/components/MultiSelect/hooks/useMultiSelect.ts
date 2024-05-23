@@ -13,7 +13,6 @@ export function useMultiSelect({ selectedValues, onSelect }: UseMultiSelectConfi
         onDropdownOpen: () => combobox.updateSelectedOptionIndex('active'),
     });
 
-    const [search, setSearch] = useState('');
     const [value, setValue] = useState<ComboboxItem[]>(selectedValues || []);
 
     useEffect(() => {
@@ -33,23 +32,15 @@ export function useMultiSelect({ selectedValues, onSelect }: UseMultiSelectConfi
             });
         }
 
-        setSearch('');
         onSelect?.(val, option);
     };
 
     const handleValueRemove = (val: string) => setValue((current) => current.filter((item) => item.value !== val));
 
-    const handleOpen = () => combobox.openDropdown();
-
-    const handleClose = () => combobox.closeDropdown();
-
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        combobox.updateSelectedOptionIndex();
-        setSearch(event.currentTarget.value);
-    };
+    const handleToggle = () => combobox.toggleDropdown();
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === 'Backspace' && search.length === 0) {
+        if (event.key === 'Backspace') {
             event.preventDefault();
 
             const option = value[value.length - 1];
@@ -59,5 +50,5 @@ export function useMultiSelect({ selectedValues, onSelect }: UseMultiSelectConfi
         }
     };
 
-    return { combobox, search, value, handleOpen, handleClose, handleValueSelect, handleChange, handleKeyDown };
+    return { combobox, value, handleToggle, handleValueSelect, handleKeyDown };
 }

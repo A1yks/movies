@@ -10,25 +10,14 @@ export type MultiSelectProps = {
     data: ComboboxItem[];
     selectedValues?: ComboboxItem[];
     placeholder?: string;
-    searchPlaceholder?: string;
     maxDisplayedValues?: number;
-    withSearch?: boolean;
     onSelect?: (value: string, option: ComboboxItem) => void;
 };
 
-function MultiSelectComponent({
-    id,
-    data,
-    selectedValues,
-    placeholder,
-    searchPlaceholder,
-    maxDisplayedValues = Infinity,
-    withSearch,
-    onSelect,
-}: MultiSelectProps) {
+function MultiSelectComponent({ id, data, selectedValues, placeholder, maxDisplayedValues = Infinity, onSelect }: MultiSelectProps) {
     const theme = useMantineTheme();
     const selectStyles = theme.components.Select.styles;
-    const { combobox, search, value, handleOpen, handleClose, handleValueSelect, handleChange, handleKeyDown } = useMultiSelect({
+    const { combobox, value, handleToggle, handleValueSelect, handleKeyDown } = useMultiSelect({
         selectedValues,
         onSelect,
     });
@@ -42,38 +31,36 @@ function MultiSelectComponent({
 
     const isActive = (index: number) => value.findIndex((item) => item.value === data[index].value) !== -1;
 
-    const options = data
-        .filter((item) => item.label.toLowerCase().includes(search.trim().toLowerCase()))
-        .map((item, i, arr) => {
-            const active = isActive(i);
-            const isTopActive = i > 0 && isActive(i - 1);
-            const isBottomActive = i < arr.length - 1 && isActive(i + 1);
+    const options = data.map((item, i, arr) => {
+        const active = isActive(i);
+        const isTopActive = i > 0 && isActive(i - 1);
+        const isBottomActive = i < arr.length - 1 && isActive(i + 1);
 
-            return (
-                <Combobox.Option
-                    value={item.value}
-                    key={item.value}
-                    active={active}
-                    bg={active ? 'purple' : undefined}
-                    c={active ? '#fff' : undefined}
-                    style={{
-                        borderTopLeftRadius: isTopActive ? 0 : undefined,
-                        borderTopRightRadius: isTopActive ? 0 : undefined,
-                        borderBottomLeftRadius: isBottomActive ? 0 : undefined,
-                        borderBottomRightRadius: isBottomActive ? 0 : undefined,
-                    }}
-                >
-                    {item.label}
-                </Combobox.Option>
-            );
-        });
+        return (
+            <Combobox.Option
+                value={item.value}
+                key={item.value}
+                active={active}
+                bg={active ? 'purple' : undefined}
+                c={active ? '#fff' : undefined}
+                style={{
+                    borderTopLeftRadius: isTopActive ? 0 : undefined,
+                    borderTopRightRadius: isTopActive ? 0 : undefined,
+                    borderBottomLeftRadius: isBottomActive ? 0 : undefined,
+                    borderBottomRightRadius: isBottomActive ? 0 : undefined,
+                }}
+            >
+                {item.label}
+            </Combobox.Option>
+        );
+    });
 
     return (
         <Combobox store={combobox} onOptionSubmit={handleValueSelect} withinPortal={false}>
             <Combobox.DropdownTarget>
                 <PillsInput
                     id={id}
-                    onClick={handleOpen}
+                    onClick={handleToggle}
                     pos='relative'
                     w='100%'
                     styles={{
@@ -116,16 +103,6 @@ function MultiSelectComponent({
             </Combobox.DropdownTarget>
 
             <Combobox.Dropdown>
-                {withSearch && (
-                    <Combobox.Search
-                        onFocus={handleOpen}
-                        onBlur={handleClose}
-                        value={search}
-                        placeholder={searchPlaceholder}
-                        onChange={handleChange}
-                        onKeyDown={handleKeyDown}
-                    />
-                )}
                 <Combobox.Options>
                     <ScrollArea.Autosize type='scroll'>
                         {options.length > 0 ? options : <Combobox.Empty>Nothing found</Combobox.Empty>}
