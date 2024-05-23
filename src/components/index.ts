@@ -16,5 +16,5 @@ export * from './MoviesSkeleton';
 export * from './DrawerMenu';
 export * from './PageTitle';
 export * from './Navbar';
-export * from './ErrorBoundary';
 export * from './Image';
+export * from './ErrorPage';

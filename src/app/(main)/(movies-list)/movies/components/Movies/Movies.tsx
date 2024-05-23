@@ -1,10 +1,10 @@
 import { getGenres, getMovies } from '@/api/movies';
-import { formatNumber, getSearchParams, getGenresAsString } from '@/utils';
+import { formatNumber, getSearchParams, getGenresAsString, withErrorCatch } from '@/utils';
 import { ClientMovies } from './ClientMovies';
 import { EmptySearchResult, MovieData } from '@/components';
 import { GetMoviesReq } from '@/api/types';
 
-export async function Movies() {
+async function MoviesComponent() {
     const searchParams = getSearchParams() as Record<keyof GetMoviesReq, string>;
     const [genres, moviesData] = await Promise.all([getGenres(), getMovies(searchParams)]);
 
@@ -28,3 +28,5 @@ export async function Movies() {
 
     return <ClientMovies data={data} />;
 }
+
+export const Movies = withErrorCatch(MoviesComponent);

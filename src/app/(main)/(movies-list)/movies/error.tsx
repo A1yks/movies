@@ -1,5 +1,5 @@
 'use client';
 
-import { ErrorBoundary } from '@/components';
+import { ErrorPage } from '@/components';
 
-export default ErrorBoundary;
+export default ErrorPage;

@@ -1,11 +1,10 @@
 import { getMovie } from '@/api/movies';
 import { formatNumber } from '@/utils';
-import { formatDate, formatDuration, formatMoney } from '@/utils';
+import { formatDate, formatDuration, formatMoney, withErrorCatch } from '@/utils';
 import { MovieInfoContent } from './components';
 import { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { SITE_NAME, TMDB_IMAGES_URL } from '@/constants/movies';
-import { notFound } from 'next/navigation';
 
 type MoviePageProps = {
     params: {
@@ -13,12 +12,8 @@ type MoviePageProps = {
     };
 };
 
-export default async function MoviePage({ params }: MoviePageProps) {
+async function MoviePage({ params }: MoviePageProps) {
     const movie = await getMovie(params.id);
-
-    if (movie === null) {
-        notFound();
-    }
 
     const hasBudget = movie.budget > 0;
     const hasGross = movie.revenue > 0;
@@ -44,27 +39,31 @@ export default async function MoviePage({ params }: MoviePageProps) {
 }
 
 export async function generateMetadata({ params }: MoviePageProps): Promise<Metadata> {
-    const movie = await getMovie(params.id);
+    try {
+        const movie = await getMovie(params.id);
 
-    if (movie === null) return {};
-
-    return {
-        title: movie.title,
-        description: movie.overview,
-        openGraph: {
+        return {
             title: movie.title,
             description: movie.overview,
-            url: headers().get('x-url') as string,
-            siteName: SITE_NAME,
-            images: [
-                {
-                    url: `${TMDB_IMAGES_URL}/w780/${movie.poster_path}`,
-                    width: 780,
-                    height: 520,
-                },
-            ],
-            locale: 'en_US',
-            type: 'website',
-        },
-    };
+            openGraph: {
+                title: movie.title,
+                description: movie.overview,
+                url: headers().get('x-url') as string,
+                siteName: SITE_NAME,
+                images: [
+                    {
+                        url: `${TMDB_IMAGES_URL}/w780/${movie.poster_path}`,
+                        width: 780,
+                        height: 520,
+                    },
+                ],
+                locale: 'en_US',
+                type: 'website',
+            },
+        };
+    } catch (error) {
+        return {};
+    }
 }
+
+export default withErrorCatch(MoviePage);

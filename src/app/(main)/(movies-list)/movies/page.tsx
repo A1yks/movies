@@ -6,7 +6,7 @@ import { getMovies } from '@/api/movies';
 import { MAX_PAGES, MOVIES_PAGE_SIZE } from '@/constants/movies';
 import { GetMoviesReq } from '@/api/types';
 import { Movies } from './components';
-import { createQueryString, validateSearchParams } from '@/utils';
+import { createQueryString, validateSearchParams, withErrorCatch } from '@/utils';
 import { RedirectType, redirect } from 'next/navigation';
 
 type MoviesPageProps = {
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     title: 'Movies',
 };
 
-export default async function MoviesPage({ searchParams }: MoviesPageProps) {
+async function MoviesPage({ searchParams }: MoviesPageProps) {
     const { qs, data } = await validateSearchParams(searchParams);
 
     const moviesData = await getMovies(searchParams);
@@ -41,3 +41,5 @@ export default async function MoviesPage({ searchParams }: MoviesPageProps) {
         </Stack>
     );
 }
+
+export default withErrorCatch(MoviesPage);

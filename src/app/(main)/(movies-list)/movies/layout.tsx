@@ -1,10 +1,10 @@
 import { getGenres } from '@/api/movies';
 import { Stack, Box, rem } from '@mantine/core';
 import { PageTitle } from '@/components';
-import { getReleaseYears } from '@/utils';
+import { getReleaseYears, withErrorCatch } from '@/utils';
 import { Filters, Sort } from './components';
 
-export default async function MoviesLayout({ children }: React.PropsWithChildren) {
+async function MoviesLayout({ children }: React.PropsWithChildren) {
     const years = getReleaseYears();
     const genres = await getGenres();
     const genreValues = Array.from(genres.entries(), ([value, label]) => ({ value: value.toString(), label }));
@@ -24,3 +24,5 @@ export default async function MoviesLayout({ children }: React.PropsWithChildren
         </Stack>
     );
 }
+
+export default withErrorCatch(MoviesLayout);

@@ -36,7 +36,6 @@ export function Filters({ years, genres }: FiltersProps) {
                     selectedValues={genresValue}
                     maxDisplayedValues={3}
                     placeholder='Select genre'
-                    searchPlaceholder='Type genre'
                     onSelect={handleGenreSelect}
                 />
             </Stack>
