@@ -29,7 +29,7 @@ function LinkPaginationComponent({ total }: PaginationProps) {
         <Pagination.Root total={total} value={page} boundaries={0}>
             <Group gap='0.5rem'>
                 <Pagination.Previous
-                    component={Link}
+                    component={isFirstPage ? undefined : Link}
                     href={`${pathname}?page=${page - 1}`}
                     aria-label='Previous page'
                     c={isFirstPage ? 'grey.3' : 'grey.6'}
@@ -55,7 +55,7 @@ function LinkPaginationComponent({ total }: PaginationProps) {
                 })}
 
                 <Pagination.Next
-                    component={Link}
+                    component={isLastPage ? undefined : Link}
                     href={`${pathname}?page=${page + 1}`}
                     aria-label='Next page'
                     c={isLastPage ? 'grey.3' : 'grey.6'}

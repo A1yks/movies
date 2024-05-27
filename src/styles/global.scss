@@ -2,7 +2,6 @@
     --hover-color: var(--mantine-color-purple-4);
     --active-color: var(--mantine-color-purple-6);
     --disabled-color: var(--mantine-color-grey-6);
-    --mantine-breakpoint-sm: 48em;
 }
 
 .poppins {
@@ -13,9 +12,7 @@
     font-family: var(--font-inter);
 }
 
-$activeOption: "[data-combobox-active='true']";
-
-#{$activeOption} {
+[data-combobox-active='true'] {
     background: var(--mantine-color-purple-filled);
     color: #fff;
 }
@@ -30,7 +27,7 @@ $activeOption: "[data-combobox-active='true']";
         color: #000;
     }
 
-    &#{$activeOption}:hover {
+    &[data-combobox-active='true']:hover {
         background: var(--mantine-color-purple-filled);
         color: #fff;
     }
